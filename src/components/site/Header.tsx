@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Menu, Search, X, ChevronDown } from "lucide-react";
 import { Logo } from "./Logo";
-import { MENU, TOP_LINKS } from "@/data/site";
+import { MENU } from "@/data/site";
 import { cn } from "@/lib/utils";
 
 export function Header() {
@@ -9,7 +9,6 @@ export function Header() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [openGroup, setOpenGroup] = useState<string | null>(null);
-  const [activeLink, setActiveLink] = useState(TOP_LINKS[0]?.href ?? "");
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 80);
@@ -25,70 +24,39 @@ export function Header() {
     };
   }, [menuOpen]);
 
-  const dark = true;
+  const dark = scrolled || menuOpen;
 
   return (
     <>
       <header
         className={cn(
-          "fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow] duration-500",
-          scrolled || menuOpen
-            ? "bg-white shadow-[0_1px_12px_rgba(0,0,0,0.06)]"
-            : "bg-white",
+          "fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,padding] duration-500",
+          dark ? "bg-white py-3 shadow-[0_1px_18px_rgba(0,0,0,0.07)]" : "bg-transparent py-6",
         )}
       >
-        <div className="grid h-[52px] grid-cols-[76px_1fr_76px] items-center px-4 sm:px-6 lg:h-[47px] lg:px-3 xl:px-6">
-          <a href="/" aria-label="Oberoi Realty home" className="block w-fit">
-            <Logo
-              markOnly
-              tone={dark ? "dark" : "light"}
-              className="scale-[0.72] transition-colors duration-500 lg:scale-[0.78]"
-            />
+        <div className="container-brand flex items-center justify-between">
+          <a href="/" aria-label="Oberoi Realty home" className="block">
+            <Logo tone={dark ? "dark" : "light"} className="transition-colors duration-500" />
           </a>
 
-          <ul className="hidden min-w-0 items-center justify-center gap-4 lg:flex xl:gap-7">
-            {TOP_LINKS.map((item) => {
-              const active = activeLink === item.href;
-              return (
-                <li key={item.href}>
-                  <a
-                    href={item.href}
-                    onClick={() => setActiveLink(item.href)}
-                    className={cn(
-                      "relative block whitespace-nowrap py-4 text-[8px] font-semibold uppercase tracking-[0.18em] transition-colors duration-300 xl:text-[9px]",
-                      active ? "text-bronze" : "text-ink/70 hover:text-bronze",
-                    )}
-                  >
-                    {item.label}
-                    <span
-                      className={cn(
-                        "absolute bottom-[9px] left-1/2 h-[3px] w-[3px] -translate-x-1/2 rotate-45 border border-current transition-opacity duration-300",
-                        active ? "opacity-100" : "opacity-0",
-                      )}
-                    />
-                  </a>
-                </li>
-              );
-            })}
-          </ul>
-
-          <div className="flex items-center justify-self-end rounded-full bg-bronze p-0.5">
+          {/* Bronze pill with search + hamburger, as on the original */}
+          <div className="flex items-center rounded-full bg-bronze p-[3px]">
             <button
               type="button"
               onClick={() => setSearchOpen((v) => !v)}
               aria-label="Search"
-              className="hidden h-7 w-7 items-center justify-center rounded-full text-white transition-colors duration-300 hover:bg-white/15 sm:flex lg:hidden xl:flex"
+              className="flex h-9 w-9 items-center justify-center rounded-full text-white transition-colors duration-300 hover:bg-white/15"
             >
-              {searchOpen ? <X className="h-3.5 w-3.5" /> : <Search className="h-3.5 w-3.5" />}
+              {searchOpen ? <X className="h-[17px] w-[17px]" /> : <Search className="h-[17px] w-[17px]" />}
             </button>
             <button
               type="button"
               onClick={() => setMenuOpen((v) => !v)}
               aria-label="Menu"
               aria-expanded={menuOpen}
-              className="flex h-7 w-7 items-center justify-center rounded-full bg-bronze-dark text-white transition-colors duration-300 hover:bg-ink"
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-bronze-dark text-white transition-colors duration-300 hover:bg-ink"
             >
-              {menuOpen ? <X className="h-3.5 w-3.5" /> : <Menu className="h-3.5 w-3.5" />}
+              {menuOpen ? <X className="h-[17px] w-[17px]" /> : <Menu className="h-[17px] w-[17px]" />}
             </button>
           </div>
         </div>

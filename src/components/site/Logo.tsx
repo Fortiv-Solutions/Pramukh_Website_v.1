@@ -1,15 +1,7 @@
 import { cn } from "@/lib/utils";
 
 /** Oberoi Realty wordmark: bronze/orange interlocked mark over stacked type. */
-export function Logo({
-  className,
-  tone = "light",
-  markOnly = false,
-}: {
-  className?: string;
-  tone?: "light" | "dark";
-  markOnly?: boolean;
-}) {
+export function Logo({ className, tone = "light" }: { className?: string; tone?: "light" | "dark" }) {
   return (
     <span className={cn("inline-flex flex-col items-center leading-none", className)}>
       <svg viewBox="0 0 64 24" className="h-[18px] w-auto" aria-hidden="true">
@@ -21,26 +13,22 @@ export function Logo({
           <path d="M40 5 L24 19" />
         </g>
       </svg>
-      {!markOnly && (
-        <>
-          <span
-            className={cn(
-              "mt-1.5 text-[15px] font-bold tracking-[0.16em]",
-              tone === "light" ? "text-white" : "text-ink",
-            )}
-          >
-            OBEROI
-          </span>
-          <span
-            className={cn(
-              "mt-0.5 text-[10px] font-medium tracking-[0.42em]",
-              tone === "light" ? "text-white/90" : "text-ink/80",
-            )}
-          >
-            REALTY
-          </span>
-        </>
-      )}
+      <span
+        className={cn(
+          "mt-1.5 text-[15px] font-bold tracking-[0.16em]",
+          tone === "light" ? "text-white" : "text-ink",
+        )}
+      >
+        OBEROI
+      </span>
+      <span
+        className={cn(
+          "mt-0.5 text-[10px] font-medium tracking-[0.42em]",
+          tone === "light" ? "text-white/90" : "text-ink/80",
+        )}
+      >
+        REALTY
+      </span>
     </span>
   );
 }
