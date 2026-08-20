@@ -23,7 +23,7 @@ export function StickyEnquire() {
     >
       <a
         href="#enquiry"
-        className="flex w-11 flex-col items-center gap-3 bg-bronze py-5 text-white transition-colors duration-300 hover:bg-deep-bronze"
+        className="flex w-11 flex-col items-center gap-3 bg-bronze py-5 text-white transition-colors duration-300 hover:bg-bronze-dark"
       >
         <MessageSquare className="h-4 w-4" />
         <span className="text-[0.6rem] font-bold uppercase tracking-[0.22em] [writing-mode:vertical-rl]">Enquire</span>

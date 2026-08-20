@@ -70,7 +70,7 @@ export function Enquiry() {
                 <button
                   type="button"
                   onClick={() => setOtpSent(true)}
-                  className="shrink-0 whitespace-nowrap border-b border-bronze pb-1 text-[0.6rem] font-bold uppercase tracking-[0.18em] text-bronze transition-colors duration-300 hover:text-deep-bronze"
+                  className="shrink-0 whitespace-nowrap border-b border-bronze pb-1 text-[0.6rem] font-bold uppercase tracking-[0.18em] text-bronze transition-colors duration-300 hover:text-bronze-dark"
                 >
                   {otpSent ? "Resend OTP" : "Get OTP"}
                 </button>
