@@ -3,7 +3,20 @@ import { Reveal } from "./Reveal";
 import { useGsap } from "@/hooks/use-gsap";
 
 export function Sustainability() {
+  const scope = useGsap<HTMLElement>(({ scope, gsap }) => {
+    gsap.fromTo(
+      scope.querySelector("[data-sus-media]"),
+      { yPercent: -8 },
+      {
+        yPercent: 8,
+        ease: "none",
+        scrollTrigger: { trigger: scope, start: "top bottom", end: "bottom top", scrub: true },
+      },
+    );
+  }, []);
+
   return (
+
     <section ref={scope} id="abt4" className="relative overflow-hidden bg-ink">
       <video
         data-sus-media
