@@ -119,7 +119,7 @@ function ProjectBlock({ project, index }: { project: LeadingProject; index: numb
           <video
             className="absolute inset-0 h-full w-full object-cover"
             src={project.video}
-            poster={current.image}
+            poster={project.map}
             autoPlay
             loop
             muted
@@ -131,9 +131,9 @@ function ProjectBlock({ project, index }: { project: LeadingProject; index: numb
         <div className="relative overflow-hidden bg-cream-soft py-12 lg:py-16 [direction:ltr]">
           <MapCanvas />
 
-          <div className="relative grid items-center gap-8 px-6 md:px-10 lg:grid-cols-[1fr_248px] lg:gap-10">
+          <div className="relative grid items-center gap-8 px-6 md:px-10 lg:grid-cols-[1fr_230px] lg:gap-8">
             {/* Markers */}
-            <div className="relative min-h-[300px] lg:min-h-[420px]">
+            <div className="relative min-h-[340px] lg:min-h-[470px]">
               {project.hotspots.map((h) => {
                 const Icon = iconFor(h.label);
                 const isActive = h.id === current.id;
@@ -145,11 +145,11 @@ function ProjectBlock({ project, index }: { project: LeadingProject; index: numb
                     onFocus={() => setActive(h.id)}
                     onClick={() => setActive(h.id)}
                     className="group absolute -translate-x-1/2 -translate-y-1/2 text-center"
-                    style={{ left: `${h.x}%`, top: `${h.y}%` }}
+                    style={{ left: `${8 + h.x * 0.8}%`, top: `${6 + h.y * 0.86}%` }}
                   >
                     <span
                       className={cn(
-                        "mx-auto flex h-11 w-11 items-center justify-center rounded-full border transition-all duration-300",
+                        "mx-auto flex h-10 w-10 items-center justify-center rounded-full border transition-all duration-300",
                         isActive
                           ? "border-bronze bg-bronze text-white shadow-[0_8px_24px_rgba(156,109,65,0.35)]"
                           : "border-bronze/40 bg-white/70 text-bronze group-hover:border-bronze group-hover:bg-white",
@@ -159,7 +159,7 @@ function ProjectBlock({ project, index }: { project: LeadingProject; index: numb
                     </span>
                     <span
                       className={cn(
-                        "mt-2 block max-w-[92px] text-[0.6rem] leading-tight transition-colors duration-300",
+                        "mt-2 block max-w-[86px] text-[0.55rem] leading-tight transition-colors duration-300",
                         isActive ? "font-semibold text-ink" : "text-body group-hover:text-ink",
                       )}
                     >
