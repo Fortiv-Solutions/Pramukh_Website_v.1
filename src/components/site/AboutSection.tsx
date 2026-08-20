@@ -3,6 +3,8 @@ import useEmblaCarousel from "embla-carousel-react";
 import { ChevronLeft, ChevronRight } from "lucide-react";
 import { ABOUT_INTRO, ABOUT_SLIDES } from "@/data/site";
 import { Reveal } from "./Reveal";
+import { AnimatedText } from "./AnimatedText";
+
 import { cn } from "@/lib/utils";
 
 export function AboutSection() {
