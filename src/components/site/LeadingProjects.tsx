@@ -1,82 +1,181 @@
 import { useState } from "react";
-import { LEADING_PROJECTS, type LeadingProject } from "@/data/site";
+import {
+  BedDouble,
+  ChevronLeft,
+  ChevronRight,
+  Coffee,
+  Dumbbell,
+  Film,
+  GraduationCap,
+  Landmark,
+  MapPin,
+  Route,
+  ShoppingBag,
+  Trees,
+  Trophy,
+  TrainFront,
+  Waves,
+} from "lucide-react";
+import { LEADING_PROJECTS, type Hotspot, type LeadingProject } from "@/data/site";
 import { Reveal } from "./Reveal";
 import { cn } from "@/lib/utils";
+
+function iconFor(label: string) {
+  const l = label.toLowerCase();
+  if (l.includes("mall") || l.includes("shop") || l.includes("retail")) return ShoppingBag;
+  if (l.includes("garden") || l.includes("landscap") || l.includes("park")) return Trees;
+  if (l.includes("court") || l.includes("sport") || l.includes("play")) return Trophy;
+  if (l.includes("pool") || l.includes("swim")) return Waves;
+  if (l.includes("metro") || l.includes("station") || l.includes("rail")) return TrainFront;
+  if (l.includes("gym") || l.includes("spa") || l.includes("fitness")) return Dumbbell;
+  if (l.includes("hotel") || l.includes("westin") || l.includes("ritz") || l.includes("carlton")) return BedDouble;
+  if (l.includes("highway") || l.includes("road") || l.includes("link road")) return Route;
+  if (l.includes("school") || l.includes("international") || l.includes("college")) return GraduationCap;
+  if (l.includes("cinema") || l.includes("theatre") || l.includes("multiplex")) return Film;
+  if (l.includes("cafe") || l.includes("café") || l.includes("restaurant") || l.includes("dining")) return Coffee;
+  if (l.includes("sea link") || l.includes("bridge") || l.includes("tower")) return Landmark;
+  return MapPin;
+}
+
+function MapCanvas() {
+  return (
+    <svg
+      className="pointer-events-none absolute inset-0 h-full w-full"
+      viewBox="0 0 600 480"
+      preserveAspectRatio="none"
+      aria-hidden="true"
+    >
+      {/* property mass */}
+      <path
+        d="M-40 90 C 120 60 260 120 300 200 C 340 285 250 400 90 430 L-40 440 Z"
+        fill="currentColor"
+        className="text-bronze/12"
+      />
+      <path
+        d="M-40 140 C 90 118 200 165 232 226 C 262 288 190 366 60 388 L-40 396 Z"
+        fill="none"
+        stroke="currentColor"
+        className="text-bronze/30"
+        strokeWidth="1"
+      />
+      <path
+        d="M-40 190 C 50 176 130 208 156 250 C 180 290 130 336 40 350 L-40 356 Z"
+        fill="none"
+        stroke="currentColor"
+        className="text-bronze/30"
+        strokeWidth="1"
+      />
+      {/* outer dashed catchment arcs */}
+      {[0, 1, 2].map((i) => (
+        <path
+          key={i}
+          d={`M-40 ${52 - i * 26} C ${180 + i * 60} ${20 - i * 20} ${400 + i * 62} ${170 - i * 10} ${
+            392 + i * 62
+          } 250 C ${384 + i * 62} 340 ${190 + i * 58} ${450 + i * 22} -40 ${472 + i * 26} Z`}
+          fill="none"
+          stroke="currentColor"
+          className="text-bronze/35"
+          strokeWidth="1"
+          strokeDasharray="3 6"
+        />
+      ))}
+    </svg>
+  );
+}
 
 function ProjectBlock({ project, index }: { project: LeadingProject; index: number }) {
   const first = project.hotspots[0]!;
   const [active, setActive] = useState(first.id);
-  const current = project.hotspots.find((h) => h.id === active) ?? first;
+  const idx = Math.max(
+    0,
+    project.hotspots.findIndex((h) => h.id === active),
+  );
+  const current: Hotspot = project.hotspots[idx] ?? first;
   const flip = index % 2 === 1;
+  const step = (dir: number) => {
+    const n = project.hotspots.length;
+    setActive(project.hotspots[(idx + dir + n) % n]!.id);
+  };
 
   return (
-    <div className={cn("py-16 md:py-20", index % 2 === 1 ? "bg-cream-soft" : "bg-white")}>
-      <div className="container-brand">
-        <Reveal className={cn("grid gap-10 lg:grid-cols-2 lg:items-center lg:gap-16", flip && "lg:[direction:rtl]")}>
-          {/* Copy */}
-          <div className={cn(flip && "lg:[direction:ltr]")}>
-            <h3 className="eyebrow">Leading Projects</h3>
-            <h2 className="headline mt-4 uppercase">{project.name}</h2>
-            <p className="mt-3 text-[0.7rem] font-medium uppercase tracking-[0.16em] text-bronze">{project.meta}</p>
-            <p className="mt-6 max-w-xl text-[0.95rem] leading-[1.95] text-body">{project.description}</p>
-            <a href={project.href} className="btn-brand mt-9">
-              View project
-            </a>
-          </div>
+    <div className="bg-white">
+      <div className="container-brand pt-16 md:pt-24">
+        <Reveal className={cn("max-w-2xl", flip && "lg:ml-auto lg:text-right")}>
+          <h3 className="eyebrow">Leading Projects</h3>
+          <h2 className="headline mt-4 uppercase">{project.name}</h2>
+          <p className="mt-3 text-[0.7rem] font-medium uppercase tracking-[0.16em] text-bronze">{project.meta}</p>
+          <p className={cn("mt-6 text-[0.95rem] leading-[1.95] text-body", flip && "lg:ml-auto")}>
+            {project.description}
+          </p>
+          <a href={project.href} className="btn-brand mt-8">
+            View project
+          </a>
+        </Reveal>
+      </div>
 
-          {/* Media + interactive hotspot map */}
-          <div className={cn("relative", flip && "lg:[direction:ltr]")}>
-            <div className="relative aspect-[16/10] w-full overflow-hidden bg-ink">
-              <video
-                className="h-full w-full object-cover"
-                src={project.video}
-                poster={project.map}
-                autoPlay
-                loop
-                muted
-                playsInline
-                preload="none"
-              />
-              <div className="absolute inset-0 bg-black/15" />
-              {project.hotspots.map((h) => (
-                <button
-                  key={h.id}
-                  type="button"
-                  onMouseEnter={() => setActive(h.id)}
-                  onFocus={() => setActive(h.id)}
-                  onClick={() => setActive(h.id)}
-                  aria-label={h.label}
-                  className="group absolute -translate-x-1/2 -translate-y-1/2"
-                  style={{ left: `${h.x}%`, top: `${h.y}%` }}
-                >
-                  <span
-                    className={cn(
-                      "relative flex h-3.5 w-3.5 items-center justify-center rounded-full border border-white transition-all duration-300",
-                      active === h.id ? "scale-125 bg-bronze" : "bg-white/40 group-hover:bg-bronze",
-                    )}
+      {/* Full-bleed media + interactive locality map */}
+      <div className={cn("mt-10 grid lg:mt-14 lg:grid-cols-2", flip && "lg:[direction:rtl]")}>
+        <div className="relative aspect-[4/3] w-full overflow-hidden bg-ink lg:aspect-auto lg:min-h-[560px]">
+          <video
+            className="absolute inset-0 h-full w-full object-cover"
+            src={project.video}
+            poster={current.image}
+            autoPlay
+            loop
+            muted
+            playsInline
+            preload="metadata"
+          />
+        </div>
+
+        <div className="relative overflow-hidden bg-cream-soft py-12 lg:py-16 [direction:ltr]">
+          <MapCanvas />
+
+          <div className="relative grid items-center gap-8 px-6 md:px-10 lg:grid-cols-[1fr_248px] lg:gap-10">
+            {/* Markers */}
+            <div className="relative min-h-[300px] lg:min-h-[420px]">
+              {project.hotspots.map((h) => {
+                const Icon = iconFor(h.label);
+                const isActive = h.id === current.id;
+                return (
+                  <button
+                    key={h.id}
+                    type="button"
+                    onMouseEnter={() => setActive(h.id)}
+                    onFocus={() => setActive(h.id)}
+                    onClick={() => setActive(h.id)}
+                    className="group absolute -translate-x-1/2 -translate-y-1/2 text-center"
+                    style={{ left: `${h.x}%`, top: `${h.y}%` }}
                   >
                     <span
                       className={cn(
-                        "absolute inset-0 rounded-full border border-white/70",
-                        active === h.id && "animate-ping",
+                        "mx-auto flex h-11 w-11 items-center justify-center rounded-full border transition-all duration-300",
+                        isActive
+                          ? "border-bronze bg-bronze text-white shadow-[0_8px_24px_rgba(156,109,65,0.35)]"
+                          : "border-bronze/40 bg-white/70 text-bronze group-hover:border-bronze group-hover:bg-white",
                       )}
-                    />
-                  </span>
-                  <span
-                    className={cn(
-                      "pointer-events-none absolute left-1/2 top-full mt-2 -translate-x-1/2 whitespace-nowrap bg-white/95 px-2 py-1 text-[0.55rem] font-semibold uppercase tracking-[0.14em] text-ink opacity-0 transition-opacity duration-300",
-                      active === h.id ? "opacity-100" : "group-hover:opacity-100",
+                    >
+                      <Icon className="h-[18px] w-[18px]" strokeWidth={1.4} />
+                    </span>
+                    <span
+                      className={cn(
+                        "mt-2 block max-w-[92px] text-[0.6rem] leading-tight transition-colors duration-300",
+                        isActive ? "font-semibold text-ink" : "text-body group-hover:text-ink",
+                      )}
+                    >
+                      {h.label}
+                    </span>
+                    {isActive && (
+                      <span className="pointer-events-none absolute left-full top-[22px] hidden h-px w-[40vw] max-w-[420px] bg-bronze/40 lg:block" />
                     )}
-                  >
-                    {h.label}
-                  </span>
-                </button>
-              ))}
+                  </button>
+                );
+              })}
             </div>
 
             {/* Active hotspot card */}
-            <div className="mt-6 flex gap-5 border border-hairline bg-white p-4 md:absolute md:right-4 md:top-4 md:mt-0 md:w-[248px] md:flex-col md:gap-0 md:border-0 md:p-0 md:shadow-[0_14px_40px_rgba(0,0,0,0.18)]">
-              <div className="img-zoom h-[104px] w-[92px] shrink-0 overflow-hidden md:h-[210px] md:w-full">
+            <div className="relative bg-white shadow-[0_18px_50px_rgba(0,0,0,0.12)]">
+              <div className="img-zoom h-[240px] w-full overflow-hidden lg:h-[300px]">
                 <img
                   key={current.image}
                   src={current.image}
@@ -86,7 +185,7 @@ function ProjectBlock({ project, index }: { project: LeadingProject; index: numb
                   style={{ animation: "brand-fade-up 0.6s var(--ease-brand) both" }}
                 />
               </div>
-              <div className="md:p-4">
+              <div className="p-4">
                 <p className="text-[0.55rem] font-semibold uppercase tracking-[0.2em] text-bronze">
                   {current.placement}
                 </p>
@@ -98,28 +197,28 @@ function ProjectBlock({ project, index }: { project: LeadingProject; index: numb
                 )}
               </div>
             </div>
-
-            {/* Hotspot chips (touch / mobile parity with original tab list) */}
-            <ul className="mt-6 flex snap-x gap-2 overflow-x-auto pb-1 hide-scrollbar">
-              {project.hotspots.map((h) => (
-                <li key={h.id} className="snap-start">
-                  <button
-                    type="button"
-                    onClick={() => setActive(h.id)}
-                    className={cn(
-                      "whitespace-nowrap border px-3 py-2 text-[0.56rem] font-semibold uppercase tracking-[0.16em] transition-colors duration-300",
-                      active === h.id
-                        ? "border-bronze bg-bronze text-white"
-                        : "border-hairline text-body hover:border-bronze hover:text-bronze",
-                    )}
-                  >
-                    {h.label}
-                  </button>
-                </li>
-              ))}
-            </ul>
           </div>
-        </Reveal>
+
+          {/* Arrows */}
+          <div className="relative mt-8 flex items-center justify-center gap-3 px-6 md:px-10 lg:justify-end">
+            <button
+              type="button"
+              onClick={() => step(-1)}
+              aria-label="Previous highlight"
+              className="flex h-9 w-9 items-center justify-center border border-bronze/40 text-bronze transition-colors duration-300 hover:border-bronze hover:bg-bronze hover:text-white"
+            >
+              <ChevronLeft className="h-4 w-4" />
+            </button>
+            <button
+              type="button"
+              onClick={() => step(1)}
+              aria-label="Next highlight"
+              className="flex h-9 w-9 items-center justify-center border border-bronze/40 text-bronze transition-colors duration-300 hover:border-bronze hover:bg-bronze hover:text-white"
+            >
+              <ChevronRight className="h-4 w-4" />
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
