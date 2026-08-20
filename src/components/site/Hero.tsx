@@ -17,12 +17,12 @@ export function Hero() {
   const [fade, setFade] = useState(true);
   const [scrolledAway, setScrolledAway] = useState(false);
 
-  // Set start time at 42 seconds and 1.25x slow motion (0.8 speed)
+  // Set start time at 45 seconds and 1.25x speed
   useEffect(() => {
     const v = videoRef.current;
     if (v) {
-      v.currentTime = 42;
-      v.playbackRate = 0.8;
+      v.currentTime = 45;
+      v.playbackRate = 1.25;
     }
   }, []);
 
@@ -72,29 +72,30 @@ export function Hero() {
 
   return (
     <section ref={scope} className="relative h-[100svh] w-full overflow-hidden bg-ink select-none">
-      {/* High-definition 1080P Agastya Surat video background - starts at 42s, 1.25x slow, zero play/pause controls */}
+      {/* High-definition 1080P Agastya video background - starts at 45s, 1.25x speed, zero play/pause controls */}
       <div data-hero-media className="absolute inset-0 h-[115%] w-full pointer-events-none overflow-hidden will-change-transform z-0">
         <video
           ref={videoRef}
           onLoadedMetadata={(e) => {
             const v = e.currentTarget;
-            v.currentTime = 42;
-            v.playbackRate = 0.8;
+            v.currentTime = 45;
+            v.playbackRate = 1.25;
           }}
           onCanPlay={(e) => {
             const v = e.currentTarget;
-            if (v.currentTime < 42) v.currentTime = 42;
-            v.playbackRate = 0.8;
+            if (v.currentTime < 45) v.currentTime = 45;
+            v.playbackRate = 1.25;
           }}
           onTimeUpdate={(e) => {
             const v = e.currentTarget;
             if (v.duration && v.currentTime >= v.duration - 15) {
-              v.currentTime = 42;
+              v.currentTime = 45;
             }
           }}
           onEnded={(e) => {
             const v = e.currentTarget;
-            v.currentTime = 42;
+            v.currentTime = 45;
+            v.playbackRate = 1.25;
             void v.play();
           }}
           className="h-full w-full object-cover pointer-events-none border-0 outline-none select-none"
@@ -105,7 +106,7 @@ export function Hero() {
           playsInline
           preload="auto"
         >
-          <source src="/images/projects/agastya-hero.mp4#t=42" type="video/mp4" />
+          <source src={`${HERO.video}#t=45`} type="video/mp4" />
         </video>
       </div>
 
@@ -131,11 +132,11 @@ export function Hero() {
       <a
         data-hero-chrome
         href={HERO.cta.href}
-        className="group absolute bottom-[16%] sm:bottom-[18%] left-1/2 z-20 -translate-x-1/2 text-white md:bottom-[16%] lg:bottom-24 whitespace-nowrap"
+        className="group absolute bottom-[16%] sm:bottom-[18%] left-1/2 z-20 -translate-x-[52%] text-white md:bottom-[16%] lg:bottom-24 whitespace-nowrap"
       >
-        <span className="flex items-center gap-3 sm:gap-4 text-[0.6rem] sm:text-[0.68rem] font-medium uppercase tracking-[0.28em] sm:tracking-[0.38em] transition-colors duration-300 group-hover:text-white/80 whitespace-nowrap">
+        <span className="flex items-center gap-2.5 sm:gap-3.5 text-[0.6rem] sm:text-[0.68rem] font-medium uppercase tracking-[0.25em] sm:tracking-[0.30em] transition-colors duration-300 group-hover:text-white/80 whitespace-nowrap">
           <i className="diamond shrink-0 transition-transform duration-500 group-hover:rotate-[135deg]" />
-          <span className="whitespace-nowrap">{HERO.cta.label}</span>
+          <span className="whitespace-nowrap -mr-[0.30em]">{HERO.cta.label}</span>
           <i className="diamond shrink-0 transition-transform duration-500 group-hover:rotate-[135deg]" />
         </span>
       </a>

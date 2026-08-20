@@ -16,7 +16,8 @@ export function ChairmanMessage() {
     setIndex((i) => (i === LEADERSHIP.length - 1 ? 0 : i + 1));
   };
 
-  const current = LEADERSHIP[index];
+  const current = LEADERSHIP[index] || LEADERSHIP[0];
+  if (!current) return null;
 
   return (
     <section id="leadership" className="relative overflow-hidden bg-[#F9F8F4] py-12 sm:py-16 md:py-28 select-none">
