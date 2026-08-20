@@ -4,8 +4,9 @@ import { Reveal } from "./Reveal";
 import { cn } from "@/lib/utils";
 
 function ProjectBlock({ project, index }: { project: LeadingProject; index: number }) {
-  const [active, setActive] = useState(project.hotspots[0].id);
-  const current = project.hotspots.find((h) => h.id === active) ?? project.hotspots[0];
+  const first = project.hotspots[0]!;
+  const [active, setActive] = useState(first.id);
+  const current = project.hotspots.find((h) => h.id === active) ?? first;
   const flip = index % 2 === 1;
 
   return (
