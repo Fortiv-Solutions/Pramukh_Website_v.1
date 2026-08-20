@@ -67,7 +67,7 @@ export function Hero() {
             immediate
             delay={0.45}
             stagger={0.075}
-            className="block text-[clamp(1.5rem,4.6vw,3.6rem)] font-semibold leading-[1.1] tracking-[0.01em] [text-shadow:0_2px_28px_rgba(0,0,0,0.35)]"
+            className="block text-white text-[clamp(1.5rem,4.6vw,3.6rem)] font-semibold leading-[1.1] tracking-[0.01em] [text-shadow:0_2px_28px_rgba(0,0,0,0.35)]"
           />
         </h1>
       </div>
