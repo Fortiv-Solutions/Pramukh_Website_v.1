@@ -145,7 +145,7 @@ function ProjectBlock({ project, index }: { project: LeadingProject; index: numb
                     onFocus={() => setActive(h.id)}
                     onClick={() => setActive(h.id)}
                     className="group absolute -translate-x-1/2 -translate-y-1/2 text-center"
-                    style={{ left: `${8 + h.x * 0.8}%`, top: `${6 + h.y * 0.86}%` }}
+                    style={{ left: `${6 + h.x * 0.92}%`, top: `${5 + h.y * 0.9}%` }}
                   >
                     <span
                       className={cn(
