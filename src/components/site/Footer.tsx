@@ -1,105 +1,269 @@
-import { useState } from "react";
-import { ChevronUp, Phone, MapPin } from "lucide-react";
-import { CONTACT, DISCLAIMER, FOOTER_LINKS, SEO_LINKS } from "@/data/site";
+import { useEffect, useState } from "react";
+import { Phone, Mail, Linkedin, Instagram, Facebook, Youtube } from "lucide-react";
+import { DISCLAIMER } from "@/data/site";
 import { Logo } from "./Logo";
 import { cn } from "@/lib/utils";
 
+/**
+ * Framer Footer — Oversized Wordmark Component matching Footer-Oversized-Wordmark-1Hl0Wc.js
+ * Optimized: Reduced vertical spacing + High-contrast 100% visible PRAMUKH wordmark.
+ */
 export function Footer() {
-  const [open, setOpen] = useState(false);
+  const [openDisclaimer, setOpenDisclaimer] = useState(false);
+  const [showFloatingWidget, setShowFloatingWidget] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show floating chat button only after user scrolls past the Hero section (> 85% viewport height)
+      if (window.scrollY > window.innerHeight * 0.85) {
+        setShowFloatingWidget(true);
+      } else {
+        setShowFloatingWidget(false);
+      }
+    };
+
+    handleScroll();
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
-    <footer className="bg-ink text-white">
-      <div className="container-brand py-14 md:py-16">
-        <div className="grid gap-12 lg:grid-cols-[280px_1fr]">
-          <div>
-            <Logo tone="light" />
-            <div className="mt-8 space-y-4 text-[0.78rem] leading-[1.9] text-white/70">
-              <p className="font-semibold text-white">{CONTACT.company}</p>
-              <p className="flex gap-3">
-                <MapPin className="mt-1 h-3.5 w-3.5 shrink-0 text-bronze" />
-                <span>{CONTACT.address}</span>
-              </p>
-              <p className="flex gap-3">
-                <Phone className="mt-1 h-3.5 w-3.5 shrink-0 text-bronze" />
-                <span>
-                  <a href={`tel:${CONTACT.phone.replace(/\s/g, "")}`} className="hover:text-white">
-                    {CONTACT.phone}
-                  </a>
-                  <br />
-                  <a href={`tel:${CONTACT.salesPhone.replace(/\s/g, "")}`} className="hover:text-white">
-                    {CONTACT.salesPhone}
-                  </a>
-                </span>
-              </p>
+    <footer className="relative w-full bg-[#F6F5EE] text-ink overflow-hidden border-t border-bronze/25 select-none pt-6 md:pt-10 pb-2">
+      <div className="container-brand relative z-10">
+        
+        {/* Top Section: Brand & Navigation Columns with Compact Vertical Padding */}
+        <div className="grid gap-8 lg:grid-cols-12 items-start pb-6 border-b border-bronze/20">
+          
+          {/* Left Column: Brand Logo + Description + Social Links */}
+          <div className="lg:col-span-4 space-y-4">
+            <Logo tone="dark" />
+            <p className="max-w-xs text-[0.82rem] leading-[1.7] text-ink/80 font-light">
+              Pramukh Group is the landmark real estate developer across Surat, Vapi, and Silvassa, creating enduring spaces with All-In Ownership™.
+            </p>
+            {/* Social Links */}
+            <div className="flex items-center gap-2.5 pt-1">
+              <a
+                href="https://linkedin.com"
+                target="_blank"
+                rel="noreferrer"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-bronze/35 bg-white text-ink transition-all duration-300 hover:border-bronze hover:bg-bronze hover:text-white shadow-sm"
+                aria-label="LinkedIn"
+              >
+                <Linkedin className="h-3.5 w-3.5" />
+              </a>
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noreferrer"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-bronze/35 bg-white text-ink transition-all duration-300 hover:border-bronze hover:bg-bronze hover:text-white shadow-sm"
+                aria-label="Instagram"
+              >
+                <Instagram className="h-3.5 w-3.5" />
+              </a>
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noreferrer"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-bronze/35 bg-white text-ink transition-all duration-300 hover:border-bronze hover:bg-bronze hover:text-white shadow-sm"
+                aria-label="Facebook"
+              >
+                <Facebook className="h-3.5 w-3.5" />
+              </a>
+              <a
+                href="https://youtube.com"
+                target="_blank"
+                rel="noreferrer"
+                className="flex h-9 w-9 items-center justify-center rounded-full border border-bronze/35 bg-white text-ink transition-all duration-300 hover:border-bronze hover:bg-bronze hover:text-white shadow-sm"
+                aria-label="YouTube"
+              >
+                <Youtube className="h-3.5 w-3.5" />
+              </a>
             </div>
           </div>
 
-          <div>
-            <ul className="grid gap-x-8 gap-y-3 sm:grid-cols-2 lg:grid-cols-3">
-              {FOOTER_LINKS.map((l) => (
-                <li key={l.label}>
-                  <a
-                    href={l.href}
-                    className="text-[0.7rem] font-medium uppercase tracking-[0.16em] text-white/70 transition-colors duration-300 hover:text-bronze"
-                  >
-                    {l.label}
+          {/* Right Column: Framer Directory Columns */}
+          <div className="lg:col-span-8 grid gap-6 sm:grid-cols-2 md:grid-cols-4">
+            
+            {/* Column 1: SURAT HQ */}
+            <div className="space-y-2.5">
+              <h3 className="text-[0.68rem] font-bold uppercase tracking-[0.24em] text-bronze font-display">
+                SURAT HQ
+              </h3>
+              <p className="text-[0.78rem] leading-[1.65] text-ink/80 font-light">
+                10th Floor, Orbit-2, Beside Celestial Dreams, Vesu Canal Road, Vesu, Surat-395007.
+              </p>
+              <div className="space-y-1 pt-1">
+                <a
+                  href="tel:+919978986778"
+                  className="block text-[0.76rem] font-medium text-ink transition-colors hover:text-bronze"
+                >
+                  <Phone className="mr-1.5 inline h-3 w-3 text-bronze" /> +91 99789 86778
+                </a>
+                <a
+                  href="mailto:inquiry@mypramukh.com"
+                  className="block text-[0.74rem] font-medium text-ink transition-colors hover:text-bronze break-all"
+                >
+                  <Mail className="mr-1.5 inline h-3 w-3 text-bronze" /> inquiry@mypramukh.com
+                </a>
+              </div>
+            </div>
+
+            {/* Column 2: VAPI OFFICE */}
+            <div className="space-y-2.5">
+              <h3 className="text-[0.68rem] font-bold uppercase tracking-[0.24em] text-bronze font-display">
+                VAPI OFFICE
+              </h3>
+              <p className="text-[0.78rem] leading-[1.65] text-ink/80 font-light">
+                Pramukh House, Vapi – Daman Main Rd, Chala, Vapi – 396191.
+              </p>
+              <div className="space-y-1 pt-1">
+                <a
+                  href="tel:+917406258000"
+                  className="block text-[0.76rem] font-medium text-ink transition-colors hover:text-bronze"
+                >
+                  <Phone className="mr-1.5 inline h-3 w-3 text-bronze" /> +91 74062 58000
+                </a>
+                <a
+                  href="mailto:inquiry@pramukh.co.in"
+                  className="block text-[0.74rem] font-medium text-ink transition-colors hover:text-bronze break-all"
+                >
+                  <Mail className="mr-1.5 inline h-3 w-3 text-bronze" /> inquiry@pramukh.co.in
+                </a>
+              </div>
+            </div>
+
+            {/* Column 3: SILVASSA OFFICE */}
+            <div className="space-y-2.5">
+              <h3 className="text-[0.68rem] font-bold uppercase tracking-[0.24em] text-bronze font-display">
+                SILVASSA OFFICE
+              </h3>
+              <p className="text-[0.78rem] leading-[1.65] text-ink/80 font-light">
+                Pramukh Realty Shop 1–4, Building A, Yogi Milan, Silvassa, Dadra and Nagar Haveli.
+              </p>
+              <div className="space-y-1 pt-1">
+                <a
+                  href="tel:+916359778000"
+                  className="block text-[0.76rem] font-medium text-ink transition-colors hover:text-bronze"
+                >
+                  <Phone className="mr-1.5 inline h-3 w-3 text-bronze" /> +91 63597 78000
+                </a>
+                <a
+                  href="mailto:inquiry.silvassa@pramukh.co.in"
+                  className="block text-[0.74rem] font-medium text-ink transition-colors hover:text-bronze break-all"
+                >
+                  <Mail className="mr-1.5 inline h-3 w-3 text-bronze" /> inquiry.silvassa@pramukh.co.in
+                </a>
+              </div>
+            </div>
+
+            {/* Column 4: DIRECTORY LINKS */}
+            <div className="space-y-2.5">
+              <h3 className="text-[0.68rem] font-bold uppercase tracking-[0.24em] text-bronze font-display">
+                QUICK DIRECTORY
+              </h3>
+              <ul className="space-y-1.5 text-[0.78rem] text-ink/80 font-light">
+                <li>
+                  <a href="#abt1" className="transition-colors hover:text-bronze">
+                    Who We Are
                   </a>
                 </li>
-              ))}
-            </ul>
-
-            <div className="mt-12 border-t border-white/10 pt-8">
-              <h3 className="text-[0.6rem] font-bold uppercase tracking-[0.24em] text-bronze">Explore</h3>
-              <ul className="mt-5 flex flex-wrap gap-x-6 gap-y-3">
-                {SEO_LINKS.map((l) => (
-                  <li key={l.label}>
-                    <a
-                      href={l.href}
-                      className="text-[0.7rem] text-white/60 transition-colors duration-300 hover:text-white"
-                    >
-                      {l.label}
-                    </a>
-                  </li>
-                ))}
+                <li>
+                  <a href="#abt2" className="transition-colors hover:text-bronze">
+                    Projects (Surat, Vapi, Silvassa)
+                  </a>
+                </li>
+                <li>
+                  <a href="#enquiry" className="transition-colors hover:text-bronze">
+                    Partner With Us
+                  </a>
+                </li>
+                <li>
+                  <a href="#enquiry" className="transition-colors hover:text-bronze">
+                    Broker Registration & CSR
+                  </a>
+                </li>
+                <li>
+                  <a href="#enquiry" className="transition-colors hover:text-bronze">
+                    NRI Services & Loan EMI
+                  </a>
+                </li>
               </ul>
             </div>
+
           </div>
         </div>
 
-        <div className="mt-12 border-t border-white/10 pt-8">
-          <button
-            type="button"
-            onClick={() => setOpen((v) => !v)}
-            aria-expanded={open}
-            className="flex items-center gap-3 text-[0.6rem] font-bold uppercase tracking-[0.24em] text-white/70 transition-colors duration-300 hover:text-bronze"
-          >
-            Disclaimer
-            <ChevronUp className={cn("h-3.5 w-3.5 transition-transform duration-300", !open && "rotate-180")} />
-          </button>
-          <div
-            className={cn(
-              "overflow-hidden transition-[max-height,opacity] duration-700",
-              open ? "mt-5 max-h-[600px] opacity-100" : "max-h-0 opacity-0",
-            )}
-          >
-            <p className="max-w-4xl text-[0.68rem] leading-[1.95] text-white/50">{DISCLAIMER}</p>
+        {/* Middle Bar: Copyright & Disclaimer Toggle (Compact Padding) */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-3 py-4 text-[0.72rem] text-ink/60 text-center sm:text-left">
+          <p className="font-mono uppercase tracking-[0.2em] text-[0.65rem]">
+            © {new Date().getFullYear()} PRAMUKH GROUP. ALL RIGHTS RESERVED.
+          </p>
+          <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6">
+            <button
+              type="button"
+              onClick={() => setOpenDisclaimer(!openDisclaimer)}
+              className="uppercase tracking-[0.2em] font-semibold text-bronze transition-colors hover:text-ink cursor-pointer"
+            >
+              {openDisclaimer ? "— HIDE DISCLAIMER" : "+ READ DISCLAIMER"}
+            </button>
+            <span className="hidden sm:inline">|</span>
+            <span className="font-light">Gujarat RERA Registered</span>
           </div>
         </div>
+
+        {/* Expandable Disclaimer Section */}
+        {openDisclaimer && (
+          <div className="pb-4 border-t border-bronze/20 pt-4">
+            <p className="max-w-5xl text-[0.68rem] leading-[1.85] text-ink/60">{DISCLAIMER}</p>
+          </div>
+        )}
       </div>
 
-      <div className="border-t border-white/10">
-        <div className="container-brand flex flex-wrap items-center justify-between gap-4 py-6">
-          <p className="text-[0.62rem] uppercase tracking-[0.18em] text-white/45">
-            © {new Date().getFullYear()} Oberoi Realty Limited. All rights reserved.
-          </p>
-          <button
-            type="button"
-            onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
-            className="flex items-center gap-2 text-[0.62rem] font-bold uppercase tracking-[0.2em] text-white/60 transition-colors duration-300 hover:text-bronze"
-          >
-            Back to top <ChevronUp className="h-3.5 w-3.5" />
-          </button>
-        </div>
+      {/* Framer Oversized Bottom Wordmark - Tight Luxury Letter Spacing */}
+      <div className="relative w-full overflow-hidden leading-none pt-2 pb-0 flex justify-center items-center pointer-events-none select-none">
+        <h1 className="text-[clamp(3.8rem,16.5vw,16rem)] font-black uppercase whitespace-nowrap tracking-tighter text-[#AD945E] font-display transition-all duration-700">
+          PRAMUKH
+        </h1>
+      </div>
+
+      {/* Oberoi Realty Inspired Floating Circular Text Pro Button (Hidden on Hero Video Section) */}
+      <div
+        className={cn(
+          "fixed bottom-4 right-4 sm:bottom-6 sm:right-6 z-40 flex flex-col items-end gap-2 transition-all duration-500",
+          showFloatingWidget
+            ? "opacity-100 translate-y-0 pointer-events-auto"
+            : "opacity-0 translate-y-10 pointer-events-none"
+        )}
+      >
+        {/* Floating Pramukh Icon Button Container */}
+        <a
+          href="#enquiry"
+          aria-label="Enquire with Pramukh Property Advisor"
+          className="group relative flex h-16 w-16 sm:h-24 sm:w-24 items-center justify-center transition-all duration-300 hover:scale-105"
+        >
+          {/* Framer Circular Text Pro Rotating SVG Ring - Luxury Brown Color */}
+          <div className="absolute inset-0 flex items-center justify-center animate-[spin_12s_linear_infinite] pointer-events-none select-none">
+            <svg viewBox="0 0 160 160" className="h-full w-full">
+              <path
+                id="pramukhCircularPath"
+                d="M 80, 80 m -58, 0 a 58,58 0 1,1 116,0 a 58,58 0 1,1 -116,0"
+                fill="none"
+              />
+              <text className="text-[10px] font-bold uppercase tracking-[0.24em] fill-[#5C4033]">
+                <textPath href="#pramukhCircularPath" startOffset="0%">
+                  PRAMUKH GROUP • ENQUIRE NOW • WELCOME TO PRAMUKH •
+                </textPath>
+              </text>
+            </svg>
+          </div>
+
+          {/* Center Pramukh Emblem Button - 100% Geometrically Centered Icon */}
+          <div className="flex h-10 w-10 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-white border-2 border-[#5C4033]/50 shadow-[0_10px_30px_rgba(0,0,0,0.15)] transition-all duration-300 group-hover:bg-[#5C4033] group-hover:border-[#5C4033] group-hover:shadow-[0_12px_36px_rgba(92,64,51,0.4)]">
+            <svg viewBox="240 0 885 410" className="h-4.5 sm:h-6 w-auto fill-[#5C4033] transition-colors duration-300 group-hover:fill-white drop-shadow-sm">
+              <path d="M712.24 224.63l0 36.1c0,0 108.25,16.5 123.84,129.03l60.14 0c0,0 -17.59,-8.96 -25.4,-30.49 -7.82,-21.57 -46.83,-120.06 -158.57,-134.64zm-245.29 -189.74l142.11 0 0 142.57c-103.09,-0.85 -139.19,-13.29 -142.11,-142.57zm-61.68 -34.89c0,0 27.52,18.54 27.76,53.04 0,3.32 0.24,6.44 0.57,9.4 9.57,128.22 64.5,146.25 175.46,147.65 0,0 -0.37,146.58 -0.54,146.58 0,0 -5.85,31.07 -21.97,33.07l22.51 0 19.65 0 15.08 0 0 -197.06 0 -175.25 0 -17.44 -195.19 0 -16.48 0 -26.85 0zm188.03 224.63l0 36.1c0,0 -108.21,16.5 -123.76,129.03l-60.22 0c0,0 17.64,-8.96 25.5,-30.49 7.76,-21.57 46.83,-120.06 158.48,-134.64zm103.17 -47.17l0 -142.57 142.07 0c-2.82,129.25 -38.94,141.69 -142.07,142.57zm177 -177.45l-16.53 0 -195.11 0 0 17.4 0 175.28 0 197.06 15 0 19.64 0 22.57 0c-16.18,-2 -21.93,-33.1 -21.93,-33.1 -0.21,0 -0.64,-146.54 -0.64,-146.54 111.03,-1.41 165.89,-19.44 175.46,-147.67 0.37,-2.96 0.61,-6.08 0.61,-9.4 0.26,-34.5 27.78,-53.03 27.78,-53.03l-26.85 0z" />
+            </svg>
+          </div>
+        </a>
       </div>
     </footer>
   );

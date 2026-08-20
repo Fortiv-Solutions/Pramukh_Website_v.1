@@ -31,11 +31,38 @@ export function Portfolio() {
                       hover === i ? "scale-[1.06]" : "scale-100",
                     )}
                     src={item.video}
+                    onLoadedMetadata={(e) => {
+                      const v = e.currentTarget;
+                      v.playbackRate = 1.25;
+                      if (v.duration && !isNaN(v.duration)) {
+                        if (v.duration > 42) {
+                          v.currentTime = 40;
+                        } else {
+                          v.currentTime = 0;
+                        }
+                      }
+                    }}
+                    onCanPlay={(e) => {
+                      const v = e.currentTarget;
+                      v.playbackRate = 1.25;
+                    }}
+                    onEnded={(e) => {
+                      const v = e.currentTarget;
+                      v.playbackRate = 1.25;
+                      if (v.duration && !isNaN(v.duration)) {
+                        if (v.duration > 42) {
+                          v.currentTime = 40;
+                        } else {
+                          v.currentTime = 0;
+                        }
+                      }
+                      void v.play();
+                    }}
                     autoPlay
                     loop
                     muted
                     playsInline
-                    preload="none"
+                    preload="auto"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent transition-opacity duration-500 group-hover:from-black/85" />
                 </div>
@@ -60,18 +87,64 @@ export function Portfolio() {
           ))}
         </div>
 
-        <div className="relative mt-14 md:mt-20">
-          <a href={PROMO.href} className="group block">
+        {/* Oberoi Realty Style Marina Bay Pramukh Architectural Banner */}
+        <div className="relative mt-16 md:mt-24 overflow-hidden rounded-none shadow-2xl group">
+          <a href={PROMO.href} className="block relative">
             <RevealImage
               src={PROMO.image}
-              alt="Oberoi Garden City Thane"
+              alt="Marina Bay Pramukh Waterfront Residences"
               direction="up"
               parallax={10}
-              className="aspect-[1278/560] w-full md:aspect-[1278/773]"
+              className="aspect-[3/4] sm:aspect-[16/11] md:aspect-[1278/680] w-full object-cover filter brightness-[0.95] contrast-[1.05] transition-transform duration-[2000ms] group-hover:scale-105"
             />
-            <span className="absolute bottom-8 left-1/2 -translate-x-1/2">
-              <span className="btn-brand bg-white/95 text-ink hover:bg-bronze hover:text-white">{PROMO.cta}</span>
-            </span>
+
+            {/* Subtle bottom gradient overlay — top building remains 100% bright & clear */}
+            <div className="absolute inset-0 bg-gradient-to-t from-black/95 via-black/60 via-60% to-transparent pointer-events-none" />
+
+            {/* Subtle gold accent line on bottom edge */}
+            <div className="absolute bottom-0 left-[5%] right-[5%] h-[2px] bg-gradient-to-r from-transparent via-[#AD945E]/60 to-transparent" />
+
+            {/* Content anchored strictly at the bottom — centered alignment */}
+            <div className="absolute inset-0 flex items-end p-4 sm:p-8 md:p-10 lg:p-12">
+              <div className="w-full text-center flex flex-col items-center justify-center mx-auto max-w-4xl">
+                <p className="text-[0.58rem] sm:text-[0.62rem] font-bold uppercase tracking-[0.3em] sm:tracking-[0.35em] text-[#AD945E] text-center">
+                  FEATURED WATERFRONT LANDMARK
+                </p>
+                
+                <h3 className="mt-1 sm:mt-2 text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold uppercase tracking-[0.06em] text-white font-display leading-tight text-center [text-shadow:0_2px_20px_rgba(0,0,0,0.8)]">
+                  MARINA BAY PRAMUKH — VAPI
+                </h3>
+
+                <p className="mt-1.5 sm:mt-2 text-[0.72rem] sm:text-[0.8rem] leading-[1.6] sm:leading-[1.7] text-white/85 font-light max-w-xl text-center line-clamp-2 sm:line-clamp-none [text-shadow:0_1px_10px_rgba(0,0,0,0.8)]">
+                  Vapi's flagship waterfront luxury development featuring sky suites, infinity pools, double-height entrance lobbies, and panoramic river vistas.
+                </p>
+
+                <div className="mt-3 sm:mt-5 flex flex-col sm:flex-row items-center justify-center gap-3 sm:gap-6 lg:gap-8">
+                  {/* Stats */}
+                  <div className="flex items-center gap-3 sm:gap-6 bg-black/40 backdrop-blur-md border border-white/10 px-3.5 py-2 sm:px-5 sm:py-3 rounded-none">
+                    <div>
+                      <span className="block text-[0.7rem] sm:text-xs md:text-base font-bold text-[#AD945E]">3, 4 & 5 BHK</span>
+                      <span className="text-[0.5rem] sm:text-[0.55rem] uppercase tracking-[0.14em] text-white/60 font-medium">Sky Residences</span>
+                    </div>
+                    <div className="h-5 sm:h-6 w-px bg-white/20" />
+                    <div>
+                      <span className="block text-[0.7rem] sm:text-xs md:text-base font-bold text-[#AD945E]">35+</span>
+                      <span className="text-[0.5rem] sm:text-[0.55rem] uppercase tracking-[0.14em] text-white/60 font-medium">Amenities</span>
+                    </div>
+                    <div className="h-5 sm:h-6 w-px bg-white/20" />
+                    <div>
+                      <span className="block text-[0.7rem] sm:text-xs md:text-base font-bold text-[#AD945E]">Waterfront</span>
+                      <span className="text-[0.5rem] sm:text-[0.55rem] uppercase tracking-[0.14em] text-white/60 font-medium">River Views</span>
+                    </div>
+                  </div>
+
+                  {/* CTA Button */}
+                  <span className="inline-flex items-center gap-2 border border-[#AD945E] bg-[#AD945E]/20 backdrop-blur-md px-5 py-2.5 sm:px-7 sm:py-3 text-[0.62rem] sm:text-[0.7rem] font-bold uppercase tracking-[0.22em] sm:tracking-[0.24em] text-white transition-all duration-500 hover:bg-[#AD945E] hover:shadow-[0_8px_32px_rgba(173,148,94,0.4)]">
+                    VIEW RESIDENCES
+                  </span>
+                </div>
+              </div>
+            </div>
           </a>
         </div>
       </div>

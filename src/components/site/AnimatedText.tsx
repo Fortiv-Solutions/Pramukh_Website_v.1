@@ -7,8 +7,8 @@ type Props = {
   text: string;
   as?: ElementType;
   className?: string;
-  /** split granularity — the original reveals headlines word-by-word */
-  split?: "word" | "line";
+  /** split granularity: word, character, or line */
+  split?: "word" | "line" | "char";
   delay?: number;
   stagger?: number;
   /** run on mount instead of on scroll (hero choreography) */
@@ -16,8 +16,8 @@ type Props = {
 };
 
 /**
- * Masked, staggered text reveal: each word sits inside an overflow-hidden line
- * box and translates up from 110% with a 0.06s stagger.
+ * Framer 3D Flip Text Reveal Component (matching ScrollRevealText-vXBxyx.js@ymLCSaN7wX7cJKeayNed)
+ * Animates text with 800px 3D perspective, rotateX 45° tilt, blur sharpening, and staggered character/word flip.
  */
 export function AnimatedText({
   text,
@@ -25,44 +25,71 @@ export function AnimatedText({
   className,
   split = "word",
   delay = 0,
-  stagger = 0.06,
+  stagger = 0.08,
   immediate = false,
 }: Props) {
   const Tag = (as ?? "span") as ElementType;
 
-  const ref = useGsap<HTMLElement>(({ scope, gsap }) => {
-    const parts = scope.querySelectorAll<HTMLElement>("[data-mt-part]");
-    gsap.set(scope, { autoAlpha: 1 });
-    gsap.fromTo(
-      parts,
-      { yPercent: 115, opacity: 0 },
-      {
-        yPercent: 0,
-        opacity: 1,
-        duration: D.slow,
-        ease: EASE.mask,
-        stagger,
-        delay,
-        ...(immediate
-          ? {}
-          : { scrollTrigger: { trigger: scope, start: START, once: true } }),
-      },
-    );
-  }, [text, split, delay, stagger, immediate]);
+  const ref = useGsap<HTMLElement>(
+    ({ scope, gsap }) => {
+      const parts = scope.querySelectorAll<HTMLElement>("[data-mt-part]");
+      gsap.set(scope, { autoAlpha: 1, style: { perspective: "800px" } });
+      
+      gsap.fromTo(
+        parts,
+        {
+          rotateX: 55,
+          y: 22,
+          opacity: 0,
+          filter: "blur(4px)",
+          transformOrigin: "50% 100%",
+        },
+        {
+          rotateX: 0,
+          y: 0,
+          opacity: 1,
+          filter: "blur(0px)",
+          duration: D.slow || 1.1,
+          ease: EASE.mask || "power3.out",
+          stagger: stagger || 0.08,
+          delay: delay || 0,
+          ...(immediate
+            ? {}
+            : { scrollTrigger: { trigger: scope, start: START || "top 88%", once: true } }),
+        }
+      );
+    },
+    [text, split, delay, stagger, immediate]
+  );
 
-  const chunks = split === "line" ? text.split(/(?<=[.!?])\s+/) : text.split(" ");
+  let chunks: string[] = [];
+  if (split === "char") {
+    chunks = Array.from(text);
+  } else if (split === "line") {
+    chunks = text.split(/(?<=[.!?])\s+/);
+  } else {
+    chunks = text.split(" ");
+  }
 
   return (
-    <Tag ref={ref} className={cn("animated-text", className)}>
+    <Tag
+      ref={ref}
+      className={cn("animated-text inline-block", className)}
+      style={{ perspective: "800px", transformStyle: "preserve-3d" }}
+    >
       {chunks.map((chunk, i) => (
         <span
           key={`${chunk}-${i}`}
-          className="inline-block overflow-hidden align-bottom"
-          style={{ paddingBottom: "0.06em" }}
+          className="inline-block overflow-visible align-bottom"
+          style={{ perspective: "800px", transformStyle: "preserve-3d" }}
         >
-          <span data-mt-part className="inline-block will-change-transform">
-            {chunk}
-            {i < chunks.length - 1 ? "\u00A0" : ""}
+          <span
+            data-mt-part
+            className="inline-block will-change-transform"
+            style={{ transformStyle: "preserve-3d", backfaceVisibility: "hidden" }}
+          >
+            {chunk === " " ? "\u00A0" : chunk}
+            {split !== "char" && i < chunks.length - 1 ? "\u00A0" : ""}
           </span>
         </span>
       ))}

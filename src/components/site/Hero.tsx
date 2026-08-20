@@ -1,24 +1,51 @@
-import { useRef, useState } from "react";
-import { Volume2, VolumeX } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
 import { HERO, TOP_LINKS } from "@/data/site";
-import { AnimatedText } from "./AnimatedText";
 import { useGsap } from "@/hooks/use-gsap";
 import { D, EASE } from "@/lib/motion";
+import { cn } from "@/lib/utils";
+
+const HERO_SENTENCES = [
+  "BUILT ON TRUST. CHOSEN FOR YOUR NEXT PROPERTY.",
+  "A CLASS OF ITS OWN — SURAT, VAPI & SILVASSA.",
+  "DESIGNED FOR ELEGANCE. DELIVERED WITH EXCELLENCE.",
+  "ALL-IN OWNERSHIP™ — UNCOMPROMISED COMMITMENT & LASTING VALUE.",
+];
 
 export function Hero() {
   const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [muted, setMuted] = useState(true);
+  const [index, setIndex] = useState(0);
+  const [fade, setFade] = useState(true);
+  const [scrolledAway, setScrolledAway] = useState(false);
 
-  const toggleSound = () => {
+  // Set start time at 42 seconds and 1.25x slow motion (0.8 speed)
+  useEffect(() => {
     const v = videoRef.current;
-    if (!v) return;
-    v.muted = !v.muted;
-    setMuted(v.muted);
-    if (!v.muted) void v.play();
-  };
+    if (v) {
+      v.currentTime = 42;
+      v.playbackRate = 0.8;
+    }
+  }, []);
 
-  // Page-load choreography + scroll-bound parallax/scale on the hero media,
-  // mirroring the original's slow drift as the next section pushes over it.
+  // Fade out Hero bottom quick links on scroll to seamlessly hand off to sticky Header navigation
+  useEffect(() => {
+    const onScroll = () => setScrolledAway(window.scrollY > 150);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  // Rotate headline smoothly every 10 seconds
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setFade(false);
+      setTimeout(() => {
+        setIndex((prev) => (prev + 1) % HERO_SENTENCES.length);
+        setFade(true);
+      }, 600);
+    }, 10000);
+    return () => clearInterval(timer);
+  }, []);
+
   const scope = useGsap<HTMLElement>(({ scope, gsap }) => {
     const media = scope.querySelector("[data-hero-media]");
     const chrome = scope.querySelectorAll("[data-hero-chrome]");
@@ -44,73 +71,96 @@ export function Hero() {
   }, []);
 
   return (
-    <section ref={scope} className="relative h-[100svh] w-full overflow-hidden bg-ink">
-      <div data-hero-media className="absolute inset-0 h-[115%] w-full will-change-transform">
+    <section ref={scope} className="relative h-[100svh] w-full overflow-hidden bg-ink select-none">
+      {/* High-definition 1080P Agastya Surat video background - starts at 42s, 1.25x slow, zero play/pause controls */}
+      <div data-hero-media className="absolute inset-0 h-[115%] w-full pointer-events-none overflow-hidden will-change-transform z-0">
         <video
           ref={videoRef}
-          className="h-full w-full object-cover"
+          onLoadedMetadata={(e) => {
+            const v = e.currentTarget;
+            v.currentTime = 42;
+            v.playbackRate = 0.8;
+          }}
+          onCanPlay={(e) => {
+            const v = e.currentTarget;
+            if (v.currentTime < 42) v.currentTime = 42;
+            v.playbackRate = 0.8;
+          }}
+          onTimeUpdate={(e) => {
+            const v = e.currentTarget;
+            if (v.duration && v.currentTime >= v.duration - 15) {
+              v.currentTime = 42;
+            }
+          }}
+          onEnded={(e) => {
+            const v = e.currentTarget;
+            v.currentTime = 42;
+            void v.play();
+          }}
+          className="h-full w-full object-cover pointer-events-none border-0 outline-none select-none"
           poster={HERO.poster}
-          src={HERO.video}
           autoPlay
           loop
           muted
           playsInline
-          preload="metadata"
-        />
+          preload="auto"
+        >
+          <source src="/images/projects/agastya-hero.mp4#t=42" type="video/mp4" />
+        </video>
       </div>
-      <div className="absolute inset-0 bg-gradient-to-b from-black/35 via-black/5 to-black/40" />
 
-      <div data-hero-copy className="absolute inset-x-0 top-1/2 -translate-y-1/2 px-6 text-center text-white">
-        <h1>
-          <AnimatedText
-            text={HERO.headline}
-            immediate
-            delay={0.45}
-            stagger={0.075}
-            className="block text-white text-[clamp(1.5rem,4.6vw,3.6rem)] font-semibold leading-[1.1] tracking-[0.01em] [text-shadow:0_2px_28px_rgba(0,0,0,0.35)]"
-          />
-        </h1>
+      {/* Dark gradient overlay + pointer events shield preventing touch/click play controls */}
+      <div className="absolute inset-0 z-10 pointer-events-auto cursor-default bg-gradient-to-b from-black/50 via-black/20 to-black/60" />
+
+      {/* Premium headline container with ultra-smooth luxury text reveal */}
+      <div data-hero-copy className="absolute inset-0 z-20 flex items-center justify-center px-6 text-center text-white pointer-events-none">
+        <div className="mx-auto max-w-4xl text-center w-full overflow-hidden py-4">
+          <h1
+            className={cn(
+              "text-center text-[clamp(1.05rem,2.4vw,1.75rem)] font-semibold uppercase tracking-[0.22em] text-white transition-all duration-[1000ms] ease-[var(--ease-brand)] [text-shadow:0_4px_24px_rgba(0,0,0,0.8)]",
+              fade
+                ? "translate-y-0 opacity-100 filter-none"
+                : "translate-y-6 opacity-0 blur-[3px]"
+            )}
+          >
+            {HERO_SENTENCES[index]}
+          </h1>
+        </div>
       </div>
 
       <a
         data-hero-chrome
         href={HERO.cta.href}
-        className="group absolute bottom-[8%] left-1/2 -translate-x-1/2 text-white"
+        className="group absolute bottom-[16%] sm:bottom-[18%] left-1/2 z-20 -translate-x-1/2 text-white md:bottom-[16%] lg:bottom-24 whitespace-nowrap"
       >
-        <span className="flex items-center gap-4 text-[0.7rem] font-medium uppercase tracking-[0.42em] transition-colors duration-300 group-hover:text-white/80">
-          <i className="diamond transition-transform duration-500 group-hover:rotate-[135deg]" />
-          {HERO.cta.label}
-          <i className="diamond transition-transform duration-500 group-hover:rotate-[135deg]" />
+        <span className="flex items-center gap-3 sm:gap-4 text-[0.6rem] sm:text-[0.68rem] font-medium uppercase tracking-[0.28em] sm:tracking-[0.38em] transition-colors duration-300 group-hover:text-white/80 whitespace-nowrap">
+          <i className="diamond shrink-0 transition-transform duration-500 group-hover:rotate-[135deg]" />
+          <span className="whitespace-nowrap">{HERO.cta.label}</span>
+          <i className="diamond shrink-0 transition-transform duration-500 group-hover:rotate-[135deg]" />
         </span>
       </a>
 
-      <button
-        data-hero-chrome
-        type="button"
-        onClick={toggleSound}
-        aria-label={muted ? "Unmute video" : "Mute video"}
-        className="absolute bottom-[8%] left-6 flex h-11 w-11 items-center justify-center rounded-full border border-white/40 text-white transition-colors duration-300 hover:bg-white/15 md:left-10"
-      >
-        {muted ? <VolumeX className="h-[17px] w-[17px]" /> : <Volume2 className="h-[17px] w-[17px]" />}
-      </button>
-
-      {/* Section quick-links strip, as on the original just below the hero */}
+      {/* Section brand highlights strip — replaces old navigation items with core trust statements */}
       <div
         data-hero-chrome
-        className="absolute inset-x-0 bottom-0 hidden border-t border-white/15 bg-black/25 backdrop-blur-[2px] lg:block"
+        className={cn(
+          "absolute inset-x-0 bottom-0 z-20 hidden border-t border-white/15 bg-black/40 backdrop-blur-md lg:block transition-all duration-500",
+          scrolledAway ? "opacity-0 translate-y-4 pointer-events-none" : "opacity-100 translate-y-0 pointer-events-auto"
+        )}
       >
-        <ul className="container-brand flex items-center justify-center gap-10 py-4">
-          {TOP_LINKS.map((l) => (
-            <li key={l.label}>
-              <a
-                href={l.href}
-                className="text-[0.62rem] font-medium uppercase tracking-[0.24em] text-white/80 transition-colors duration-300 hover:text-white"
-              >
-                {l.label}
-              </a>
-            </li>
-          ))}
-        </ul>
+        <div className="container-brand flex items-center justify-between py-4 text-white">
+          <a href="#abt3" className="text-[0.7rem] font-bold uppercase tracking-[0.26em] text-[#AD945E] transition-colors hover:text-white">
+            60+ Projects Delivered
+          </a>
+          <div className="h-3 w-px bg-white/20" />
+          <a href="#abt1" className="text-[0.7rem] font-medium uppercase tracking-[0.26em] text-white/90 transition-colors hover:text-[#AD945E]">
+            Pramukh Group &nbsp;©&nbsp; Since 1993
+          </a>
+          <div className="h-3 w-px bg-white/20" />
+          <a href="#abt2" className="text-[0.7rem] font-light uppercase tracking-[0.26em] text-white/80 transition-colors hover:text-white">
+            Surat, Vapi, and Silvassa
+          </a>
+        </div>
       </div>
     </section>
   );

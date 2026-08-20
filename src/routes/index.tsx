@@ -4,6 +4,7 @@ import { Preloader } from "@/components/site/Preloader";
 import { Header } from "@/components/site/Header";
 import { Hero } from "@/components/site/Hero";
 import { AboutSection } from "@/components/site/AboutSection";
+import { FunFacts } from "@/components/site/FunFacts";
 import { ChairmanMessage } from "@/components/site/ChairmanMessage";
 import { LeadingProjects } from "@/components/site/LeadingProjects";
 import { Portfolio } from "@/components/site/Portfolio";
@@ -14,9 +15,9 @@ import { Insights } from "@/components/site/Insights";
 import { Footer } from "@/components/site/Footer";
 import { StickyEnquire } from "@/components/site/StickyEnquire";
 
-const title = "Oberoi Realty — Luxury Residential & Commercial Projects in Mumbai";
+const title = "Pramukh Group — Building Class, Developing Excellence | Premium Projects in Gujarat";
 const description =
-  "Oberoi Realty builds premium residential, commercial, retail and hospitality developments across Mumbai — Oberoi Garden City, Sky City and Three Sixty West.";
+  "Pramukh Group is a premier real estate developer with 60+ delivered projects across Surat, Vapi, Silvassa and Gandhinagar. Discover Pramukh Satva, Pramukh Zenith & Pramukh Swagat.";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -40,6 +41,7 @@ function Index() {
       <main>
         <Hero />
         <AboutSection />
+        <FunFacts />
         <ChairmanMessage />
         <LeadingProjects />
         <Portfolio />

@@ -22,11 +22,27 @@ export function Sustainability() {
         data-sus-media
         className="absolute inset-0 h-[118%] w-full object-cover will-change-transform"
         src={SUSTAINABILITY.video}
+        onLoadedMetadata={(e) => {
+          const v = e.currentTarget;
+          v.playbackRate = 1.25;
+          v.currentTime = 40;
+        }}
+        onCanPlay={(e) => {
+          const v = e.currentTarget;
+          v.playbackRate = 1.25;
+          if (v.currentTime < 35) v.currentTime = 40;
+        }}
+        onEnded={(e) => {
+          const v = e.currentTarget;
+          v.playbackRate = 1.25;
+          v.currentTime = 40;
+          void v.play();
+        }}
         autoPlay
         loop
         muted
         playsInline
-        preload="none"
+        preload="auto"
       />
       <div className="absolute inset-0 bg-black/55" />
       <div className="container-brand relative py-20 md:py-28">
@@ -40,12 +56,22 @@ export function Sustainability() {
           <div className="mx-auto mt-6 h-px w-12 bg-white/45" />
         </Reveal>
 
-        <div className="mt-14 grid gap-10 md:grid-cols-3 md:gap-8">
+        <div className="mt-14 grid gap-8 md:grid-cols-3">
           {SUSTAINABILITY.pillars.map((p, i) => (
-            <Reveal key={p.label} delay={i * 120} className="text-center text-white md:px-4">
-              <i className="diamond mx-auto block" />
-              <h3 className="mt-5 text-[0.72rem] font-bold uppercase tracking-[0.26em]">{p.label}</h3>
-              <p className="mt-4 text-[0.85rem] leading-[1.9] text-white/80">{p.body}</p>
+            <Reveal
+              key={p.label}
+              delay={i * 120}
+              className="group relative flex flex-col items-center text-center text-ink bg-white/92 backdrop-blur-lg border border-bronze/40 p-6 sm:p-8 rounded-none shadow-[0_16px_40px_rgba(0,0,0,0.12)] transition-all duration-500 hover:border-bronze hover:bg-white hover:shadow-[0_24px_50px_rgba(173,148,94,0.3)] hover:-translate-y-2"
+            >
+              {/* Luxury Gold Triangle Accent Shape */}
+              <div className="mx-auto flex h-10 w-10 items-center justify-center transition-transform duration-500 group-hover:scale-125">
+                <svg viewBox="0 0 24 24" className="h-6 w-6 fill-bronze text-bronze drop-shadow-[0_2px_10px_rgba(173,148,94,0.6)]">
+                  <polygon points="12,3 22,21 2,21" />
+                </svg>
+              </div>
+              <h3 className="mt-5 text-[0.82rem] font-bold uppercase tracking-[0.28em] text-bronze">{p.label}</h3>
+              <div className="my-3.5 h-[2px] w-10 bg-bronze/40 transition-all duration-500 group-hover:w-16 group-hover:bg-bronze" />
+              <p className="text-[0.88rem] leading-[1.95] text-ink/90 font-light">{p.body}</p>
             </Reveal>
           ))}
         </div>

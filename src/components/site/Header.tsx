@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Menu, Search, X, ChevronDown } from "lucide-react";
 import { Logo } from "./Logo";
-import { MENU } from "@/data/site";
+import { MENU, TOP_LINKS } from "@/data/site";
 import { cn } from "@/lib/utils";
 
 export function Header() {
@@ -11,7 +11,8 @@ export function Header() {
   const [openGroup, setOpenGroup] = useState<string | null>(null);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 80);
+    // Reveal center navigation links once scrolled past the Hero section (> 450px)
+    const onScroll = () => setScrolled(window.scrollY > 450);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -31,16 +32,44 @@ export function Header() {
       <header
         className={cn(
           "fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,padding] duration-500",
-          dark ? "bg-white py-3 shadow-[0_1px_18px_rgba(0,0,0,0.07)]" : "bg-transparent py-6",
+          dark
+            ? "bg-white py-3 shadow-[0_4px_25px_rgba(0,0,0,0.06)] border-b border-black/5"
+            : "bg-gradient-to-b from-black/80 via-black/35 to-transparent py-5 md:py-6"
         )}
       >
-        <div className="container-brand flex items-center justify-between">
-          <a href="/" aria-label="Oberoi Realty home" className="block">
+        <div className="container-brand flex items-center justify-between gap-4">
+          {/* Left Brand Logo */}
+          <a href="/" aria-label="Pramukh Group home" className="block shrink-0">
             <Logo tone={dark ? "dark" : "light"} className="transition-colors duration-500" />
           </a>
 
-          {/* Bronze pill with search + hamburger, as on the original */}
-          <div className="flex items-center rounded-full bg-bronze p-[3px]">
+          {/* Center Quick Navigation Links - Smooth Fade In When Scrolled Past Hero Section */}
+          <div
+            className={cn(
+              "hidden lg:flex items-center justify-center gap-6 xl:gap-8 transition-all duration-500",
+              scrolled && !menuOpen
+                ? "opacity-100 translate-y-0 pointer-events-auto"
+                : "opacity-0 -translate-y-2 pointer-events-none"
+            )}
+          >
+            {TOP_LINKS.map((link) => (
+              <a
+                key={link.label}
+                href={link.href}
+                className={cn(
+                  "text-[0.66rem] xl:text-[0.72rem] font-bold uppercase tracking-[0.24em] transition-colors duration-300 whitespace-nowrap",
+                  link.label === "ENQUIRE NOW"
+                    ? "rounded-full bg-[#AD945E] px-4 py-1.5 text-white hover:bg-[#8C734B] shadow-sm"
+                    : "text-[#1C1A17]/80 hover:text-[#AD945E]"
+                )}
+              >
+                {link.label}
+              </a>
+            ))}
+          </div>
+
+          {/* Right Controls: Search + Hamburger Pill */}
+          <div className="flex items-center rounded-full bg-bronze p-[3px] shrink-0">
             <button
               type="button"
               onClick={() => setSearchOpen((v) => !v)}
@@ -61,12 +90,11 @@ export function Header() {
           </div>
         </div>
 
-
-        {/* Search drawer */}
+        {/* Search Drawer */}
         <div
           className={cn(
             "overflow-hidden border-b border-hairline bg-white transition-[max-height,opacity] duration-500",
-            searchOpen ? "mt-3 max-h-24 opacity-100" : "max-h-0 opacity-0",
+            searchOpen ? "mt-3 max-h-24 opacity-100" : "max-h-0 opacity-0"
           )}
         >
           <form
@@ -87,15 +115,15 @@ export function Header() {
         </div>
       </header>
 
-      {/* Full-screen navigation overlay */}
+      {/* Full-Screen Navigation Overlay */}
       <nav
         aria-hidden={!menuOpen}
         className={cn(
           "fixed inset-0 z-40 bg-cream-soft transition-[opacity,visibility] duration-500",
-          menuOpen ? "visible opacity-100" : "invisible opacity-0",
+          menuOpen ? "visible opacity-100" : "invisible opacity-0"
         )}
       >
-        <div className="container-brand flex h-full flex-col justify-center overflow-y-auto pt-24 pb-16 hide-scrollbar">
+        <div className="container-brand flex h-full flex-col justify-start overflow-y-auto pt-28 pb-12 hide-scrollbar">
           <ul className="grid gap-x-16 gap-y-1 md:grid-cols-2">
             {MENU.map((item, i) => (
               <li
@@ -123,7 +151,7 @@ export function Header() {
                       <ChevronDown
                         className={cn(
                           "h-4 w-4 transition-transform duration-300",
-                          openGroup === item.label && "rotate-180",
+                          openGroup === item.label && "rotate-180"
                         )}
                       />
                     </button>
@@ -133,7 +161,7 @@ export function Header() {
                   <ul
                     className={cn(
                       "overflow-hidden transition-[max-height,opacity] duration-500",
-                      openGroup === item.label ? "max-h-52 opacity-100" : "max-h-0 opacity-0",
+                      openGroup === item.label ? "max-h-52 opacity-100" : "max-h-0 opacity-0"
                     )}
                   >
                     {item.children.map((child) => (

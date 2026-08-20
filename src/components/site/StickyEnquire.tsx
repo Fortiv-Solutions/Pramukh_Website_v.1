@@ -3,7 +3,7 @@ import { MessageSquare, Phone } from "lucide-react";
 import { CONTACT } from "@/data/site";
 import { cn } from "@/lib/utils";
 
-/** Fixed side rail with enquire + call, appearing after the hero as on the original. */
+/** Fixed side rail with enquire + call docked on the left edge of the website. */
 export function StickyEnquire() {
   const [visible, setVisible] = useState(false);
 
@@ -17,7 +17,7 @@ export function StickyEnquire() {
   return (
     <div
       className={cn(
-        "fixed right-0 top-1/2 z-40 hidden -translate-y-1/2 flex-col transition-[transform,opacity] duration-500 ease-[var(--ease-brand)] lg:flex",
+        "fixed right-0 top-1/2 z-40 hidden -translate-y-1/2 flex-col rounded-l-sm overflow-hidden shadow-lg transition-[transform,opacity] duration-500 ease-[var(--ease-brand)] lg:flex",
         visible ? "translate-x-0 opacity-100" : "translate-x-full opacity-0",
       )}
     >
