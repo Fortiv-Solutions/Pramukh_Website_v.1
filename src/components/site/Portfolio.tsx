@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { PORTFOLIO, PROMO } from "@/data/site";
 import { Reveal } from "./Reveal";
+import { RevealImage } from "./RevealImage";
 import { cn } from "@/lib/utils";
 
 export function Portfolio() {
@@ -59,19 +60,20 @@ export function Portfolio() {
           ))}
         </div>
 
-        <Reveal className="img-zoom relative mt-14 block overflow-hidden md:mt-20">
+        <div className="relative mt-14 md:mt-20">
           <a href={PROMO.href} className="group block">
-            <img
+            <RevealImage
               src={PROMO.image}
               alt="Oberoi Garden City Thane"
-              loading="lazy"
-              className="aspect-[1278/560] w-full object-cover md:aspect-[1278/773]"
+              direction="up"
+              parallax={10}
+              className="aspect-[1278/560] w-full md:aspect-[1278/773]"
             />
             <span className="absolute bottom-8 left-1/2 -translate-x-1/2">
               <span className="btn-brand bg-white/95 text-ink hover:bg-bronze hover:text-white">{PROMO.cta}</span>
             </span>
           </a>
-        </Reveal>
+        </div>
       </div>
     </section>
   );

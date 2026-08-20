@@ -1,11 +1,13 @@
 import { SUSTAINABILITY } from "@/data/site";
 import { Reveal } from "./Reveal";
+import { useGsap } from "@/hooks/use-gsap";
 
 export function Sustainability() {
   return (
-    <section id="abt4" className="relative overflow-hidden bg-ink">
+    <section ref={scope} id="abt4" className="relative overflow-hidden bg-ink">
       <video
-        className="absolute inset-0 h-full w-full object-cover"
+        data-sus-media
+        className="absolute inset-0 h-[118%] w-full object-cover will-change-transform"
         src={SUSTAINABILITY.video}
         autoPlay
         loop
