@@ -54,7 +54,7 @@ export function Header() {
               onClick={() => setMenuOpen((v) => !v)}
               aria-label="Menu"
               aria-expanded={menuOpen}
-              className="flex h-9 w-9 items-center justify-center rounded-full bg-bronze-deep text-white transition-colors duration-300 hover:bg-ink"
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-bronze-dark text-white transition-colors duration-300 hover:bg-ink"
             >
               {menuOpen ? <X className="h-[17px] w-[17px]" /> : <Menu className="h-[17px] w-[17px]" />}
             </button>
