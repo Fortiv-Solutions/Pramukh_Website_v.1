@@ -1,5 +1,6 @@
 import { SUSTAINABILITY } from "@/data/site";
 import { Reveal } from "./Reveal";
+import { LazyVideo } from "./LazyVideo";
 import { useGsap } from "@/hooks/use-gsap";
 
 export function Sustainability() {
@@ -16,35 +17,16 @@ export function Sustainability() {
   }, []);
 
   return (
-
     <section ref={scope} id="abt4" className="relative overflow-hidden bg-ink">
-      <video
-        data-sus-media
-        className="absolute inset-0 h-[118%] w-full object-cover will-change-transform"
-        src={SUSTAINABILITY.video}
-        onLoadedMetadata={(e) => {
-          const v = e.currentTarget;
-          v.playbackRate = 1.25;
-          v.currentTime = 40;
-        }}
-        onCanPlay={(e) => {
-          const v = e.currentTarget;
-          v.playbackRate = 1.25;
-          if (v.currentTime < 35) v.currentTime = 40;
-        }}
-        onEnded={(e) => {
-          const v = e.currentTarget;
-          v.playbackRate = 1.25;
-          v.currentTime = 40;
-          void v.play();
-        }}
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="auto"
-      />
-      <div className="absolute inset-0 bg-black/55" />
+      <div data-sus-media className="absolute inset-0 h-[118%] w-full pointer-events-none overflow-hidden will-change-transform z-0">
+        <LazyVideo
+          src={SUSTAINABILITY.video}
+          startTime={40}
+          playbackRate={1.25}
+          className="h-full w-full object-cover"
+        />
+      </div>
+      <div className="absolute inset-0 bg-black/55 z-0 pointer-events-none" />
       <div className="container-brand relative py-20 md:py-28">
         <Reveal className="text-center text-white">
           <h2 className="text-[0.68rem] font-semibold uppercase tracking-[0.32em] text-white/85">

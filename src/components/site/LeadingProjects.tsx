@@ -20,6 +20,7 @@ import {
 import { LEADING_PROJECTS, type Hotspot, type LeadingProject } from "@/data/site";
 import { Reveal } from "./Reveal";
 import { AnimatedText } from "./AnimatedText";
+import { LazyVideo } from "./LazyVideo";
 import { cn } from "@/lib/utils";
 
 /** Official Pramukh Group double-mirrored "P" brand mark SVG component */
@@ -135,65 +136,39 @@ function ProjectBlock({ project, index }: { project: LeadingProject; index: numb
       </div>
 
       {/* Full-bleed video + architectural interactive map */}
-      <div className={cn("mt-10 grid lg:mt-14 lg:grid-cols-2", flip && "lg:[direction:rtl]")}>
-        <div className="relative aspect-[4/3] w-full overflow-hidden bg-ink lg:aspect-auto lg:min-h-[560px]">
-          <video
-            className="absolute inset-0 h-full w-full object-cover"
+      <div className={cn("mt-10 grid lg:mt-14 lg:grid-cols-2 border-y border-bronze/20", flip && "lg:[direction:rtl]")}>
+        <div className="relative aspect-[16/10] sm:aspect-[4/3] w-full overflow-hidden bg-ink lg:aspect-auto lg:min-h-[560px]">
+          <LazyVideo
             src={project.video}
-            poster={first.image}
-            onLoadedMetadata={(e) => {
-              const v = e.currentTarget;
-              v.playbackRate = 1.25;
-              if (v.duration && !isNaN(v.duration)) {
-                if (v.duration > 42) {
-                  v.currentTime = 40;
-                } else {
-                  v.currentTime = 0;
-                }
-              }
-            }}
-            onCanPlay={(e) => {
-              const v = e.currentTarget;
-              v.playbackRate = 1.25;
-            }}
-            onEnded={(e) => {
-              const v = e.currentTarget;
-              v.playbackRate = 1.25;
-              if (v.duration && !isNaN(v.duration)) {
-                if (v.duration > 42) {
-                  v.currentTime = 40;
-                } else {
-                  v.currentTime = 0;
-                }
-              }
-              void v.play();
-            }}
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
+            startTime={40}
+            playbackRate={1.25}
+            className="absolute inset-0 h-full w-full object-cover"
           />
         </div>
 
-        <div className="relative overflow-hidden bg-cream py-6 sm:py-10 lg:py-16 [direction:ltr]">
+        <div className="relative overflow-hidden bg-[#F7F6F2] py-4 sm:py-8 lg:py-14 [direction:ltr]">
           {/* Architectural Locality Map Canvas with Pramukh Emblem centered inside inner circle */}
           <ArchitecturalMapCanvas />
 
-          {/* Clean Google Maps External Link Badge */}
-          <a
-            href={mapQueryUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="absolute top-3 right-3 sm:top-4 sm:right-4 z-20 flex items-center gap-1.5 sm:gap-2 rounded-full border border-bronze/30 bg-white/95 px-2.5 py-1 text-[0.55rem] sm:text-[0.6rem] font-bold uppercase tracking-wider text-ink shadow-sm transition-all duration-300 hover:bg-bronze hover:text-white"
-          >
-            <span>Live Satellite Map</span>
-            <ExternalLink className="h-3 w-3" />
-          </a>
+          {/* Header Bar with Live Satellite Map */}
+          <div className="relative z-20 flex items-center justify-between px-4 sm:px-8 mb-2 sm:mb-4">
+            <span className="text-[0.62rem] font-bold uppercase tracking-[0.24em] text-bronze font-serif">
+              Landmarks & Connectivity
+            </span>
+            <a
+              href={mapQueryUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 rounded-full border border-bronze/30 bg-white/95 px-3 py-1 text-[0.58rem] sm:text-[0.62rem] font-bold uppercase tracking-wider text-ink shadow-sm transition-all duration-300 hover:bg-bronze hover:text-white"
+            >
+              <span>Live Satellite Map</span>
+              <ExternalLink className="h-3 w-3" />
+            </a>
+          </div>
 
-          <div className="relative grid items-center gap-6 sm:gap-8 px-4 sm:px-8 lg:pr-16 lg:grid-cols-[1fr_240px] z-10">
-            {/* Interactive Hotspot Nodes */}
-            <div className="relative min-h-[260px] sm:min-h-[340px] lg:min-h-[470px]">
+          <div className="relative grid items-center gap-4 sm:gap-6 px-4 sm:px-8 lg:pr-14 lg:grid-cols-[1fr_260px] z-10">
+            {/* Interactive Hotspot Nodes on Orbit Canvas */}
+            <div className="relative h-[210px] sm:h-[290px] lg:min-h-[460px] w-full">
               {project.hotspots.map((h) => {
                 const Icon = iconFor(h.label);
                 const isActive = h.id === current.id;
@@ -205,8 +180,8 @@ function ProjectBlock({ project, index }: { project: LeadingProject; index: numb
                     onMouseEnter={() => setActive(h.id)}
                     onFocus={() => setActive(h.id)}
                     onClick={() => setActive(h.id)}
-                    className="group absolute -translate-y-1/2 flex items-center gap-1.5 sm:gap-2 transition-all duration-300 hover:scale-105 z-20 cursor-pointer"
-                    style={{ left: `${h.x}%`, top: `${h.y}%` }}
+                    className="group absolute -translate-y-1/2 flex items-center gap-1 sm:gap-2 transition-all duration-300 hover:scale-105 z-20 cursor-pointer p-1 -m-1"
+                    style={{ left: `${Math.min(88, Math.max(8, h.x))}%`, top: `${Math.min(88, Math.max(12, h.y))}%` }}
                   >
                     <span
                       className={cn(
@@ -220,7 +195,7 @@ function ProjectBlock({ project, index }: { project: LeadingProject; index: numb
                     </span>
                     <span
                       className={cn(
-                        "rounded-full px-2 py-0.5 text-[0.55rem] sm:text-[0.6rem] font-semibold tracking-wide border shadow-sm backdrop-blur-md transition-all duration-300",
+                        "rounded-full px-2 py-0.5 text-[0.55rem] sm:text-[0.6rem] font-semibold tracking-wide border shadow-sm backdrop-blur-md transition-all duration-300 whitespace-nowrap",
                         isActive
                           ? "border-[#AD945E] bg-[#1C1A17] text-white font-bold shadow-md inline-block z-30"
                           : "border-bronze/25 bg-white/95 text-[#1C1A17] group-hover:border-bronze group-hover:bg-white hidden sm:inline-block"
@@ -233,52 +208,88 @@ function ProjectBlock({ project, index }: { project: LeadingProject; index: numb
               })}
             </div>
 
-            {/* Active Property Preview Card */}
-            <div className="relative bg-white shadow-[0_20px_50px_rgba(0,0,0,0.12)] border border-hairline/80 overflow-hidden z-20">
-              <div className="img-zoom h-[230px] w-full overflow-hidden lg:h-[280px]">
+            {/* Mobile Hotspots Horizontal Quick Scroll Pill Bar */}
+            <div className="flex lg:hidden items-center gap-2 overflow-x-auto pb-2 -mx-4 px-4 no-scrollbar">
+              {project.hotspots.map((h) => {
+                const Icon = iconFor(h.label);
+                const isActive = h.id === current.id;
+                return (
+                  <button
+                    key={`pill-${h.id}`}
+                    type="button"
+                    onClick={() => setActive(h.id)}
+                    className={cn(
+                      "flex items-center gap-1.5 shrink-0 rounded-full px-3 py-1 text-[0.58rem] font-semibold tracking-wide border transition-all duration-300 whitespace-nowrap",
+                      isActive
+                        ? "border-bronze bg-bronze text-white shadow-md"
+                        : "border-bronze/25 bg-white/95 text-ink hover:border-bronze"
+                    )}
+                  >
+                    <Icon className="h-3 w-3" />
+                    <span>{h.label}</span>
+                  </button>
+                );
+              })}
+            </div>
+
+            {/* Active Property / Highlight Preview Card */}
+            <div className="relative bg-white rounded-xl shadow-[0_15px_40px_rgba(0,0,0,0.10)] border border-bronze/20 overflow-hidden z-20">
+              <div className="img-zoom h-[160px] sm:h-[200px] lg:h-[260px] w-full overflow-hidden">
                 <img
                   key={current.image}
                   src={current.image}
                   alt={current.title}
                   loading="lazy"
+                  decoding="async"
+                  width={400}
+                  height={280}
                   className="h-full w-full object-cover"
-                  style={{ animation: "brand-fade-up 0.6s var(--ease-brand) both" }}
+                  style={{ animation: "brand-fade-up 0.5s var(--ease-brand) both" }}
                 />
               </div>
-              <div className="p-4">
-                <p className="flex items-center gap-1.5 text-[0.55rem] font-semibold uppercase tracking-[0.2em] text-bronze">
-                  <MapPin className="h-3 w-3 text-bronze" />
-                  {current.placement}
-                </p>
-                <h4 className="mt-1.5 text-[0.92rem] font-semibold leading-snug text-ink">{current.title}</h4>
-                {current.distance && (
-                  <p className="mt-1.5 text-[0.68rem] leading-relaxed text-body">
-                    <span className="font-semibold text-ink">{current.distance}</span> {current.distanceLabel}
+              <div className="p-3.5 sm:p-4">
+                <div className="flex items-center justify-between gap-2">
+                  <p className="flex items-center gap-1 text-[0.55rem] font-bold uppercase tracking-[0.2em] text-bronze font-serif">
+                    <MapPin className="h-3 w-3 text-bronze shrink-0" />
+                    <span className="truncate">{current.placement}</span>
+                  </p>
+                  {current.distance && (
+                    <span className="rounded-full bg-bronze/10 px-2 py-0.5 text-[0.52rem] font-semibold text-bronze whitespace-nowrap">
+                      {current.distance}
+                    </span>
+                  )}
+                </div>
+                <h4 className="mt-1 text-[0.88rem] sm:text-[0.92rem] font-semibold leading-snug text-ink font-serif truncate">
+                  {current.title}
+                </h4>
+                {current.distanceLabel && (
+                  <p className="mt-1 text-[0.66rem] text-body line-clamp-1 font-light">
+                    {current.distanceLabel}
                   </p>
                 )}
               </div>
 
               {/* Navigation controls */}
-              <div className="flex items-center justify-between border-t border-hairline p-3 bg-cream/30">
-                <span className="text-[0.6rem] font-bold uppercase tracking-[0.16em] text-body">
+              <div className="flex items-center justify-between border-t border-bronze/15 px-3 py-2 bg-[#F7F6F2]/60">
+                <span className="text-[0.58rem] font-bold uppercase tracking-[0.16em] text-bronze font-mono">
                   {project.hotspots.findIndex((h) => h.id === current.id) + 1} / {project.hotspots.length}
                 </span>
-                <div className="flex items-center gap-2">
+                <div className="flex items-center gap-1.5">
                   <button
                     type="button"
                     onClick={() => step(-1)}
                     aria-label="Previous highlight"
-                    className="flex h-8 w-8 items-center justify-center border border-hairline bg-white text-body transition-colors duration-300 hover:border-bronze hover:bg-bronze hover:text-white"
+                    className="flex h-7 w-7 items-center justify-center rounded-full border border-bronze/30 bg-white text-ink transition-colors duration-300 hover:border-bronze hover:bg-bronze hover:text-white"
                   >
-                    <ChevronLeft className="h-4 w-4" />
+                    <ChevronLeft className="h-3.5 w-3.5" />
                   </button>
                   <button
                     type="button"
                     onClick={() => step(1)}
                     aria-label="Next highlight"
-                    className="flex h-8 w-8 items-center justify-center border border-hairline bg-white text-body transition-colors duration-300 hover:border-bronze hover:bg-bronze hover:text-white"
+                    className="flex h-7 w-7 items-center justify-center rounded-full border border-bronze/30 bg-white text-ink transition-colors duration-300 hover:border-bronze hover:bg-bronze hover:text-white"
                   >
-                    <ChevronRight className="h-4 w-4" />
+                    <ChevronRight className="h-3.5 w-3.5" />
                   </button>
                 </div>
               </div>

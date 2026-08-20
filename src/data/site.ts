@@ -1,6 +1,6 @@
 export const HERO = {
   video: "/videos/agastya-hero.mp4",
-  poster: "/images/projects/agastya.jpg",
+  poster: "/images/projects/agastya.webp",
   headline: "BUILT ON TRUST. CHOSEN FOR YOUR NEXT PROPERTY.",
   cta: { label: "Explore Projects", href: "#abt2" },
 };
@@ -79,7 +79,7 @@ export const LEADERSHIP = [
     id: "virambhai",
     name: "Virambhai R. Bhatu",
     designation: "Founder & Board of Directors, Pramukh Group",
-    image: "/images/projects/virambhai-r-bhatu.jpg",
+    image: "/images/projects/virambhai-r-bhatu.webp",
     paragraphs: [
       "What sets Pramukh apart isn’t just what we build—it’s how we build and how we engage with every stakeholder. We bring together clarity, commitment, and a people-first approach.",
       "Rooted in strong local understanding across Surat, Vapi, and Silvassa, we believe in staying focused, acting responsibly, and delivering without unnecessary noise.",
@@ -90,7 +90,7 @@ export const LEADERSHIP = [
     id: "natubhai",
     name: "Natubhai R. Bhatu",
     designation: "Founder & Chairman, Pramukh Group",
-    image: "/images/projects/nathu-bhai.jpg",
+    image: "/images/projects/nathu-bhai.webp",
     paragraphs: [
       "From our humble beginnings in 1993, our vision has always been grounded in uncompromising quality, ethical practices, and deep structural integrity.",
       "Building over 60 landmarks is not just about brick and mortar—it is about nurturing communities and providing families with spaces where memories flourish.",
@@ -112,7 +112,7 @@ export const LEADERSHIP = [
     id: "ajitbhai",
     name: "Ajitbhai H. Khodbhaya",
     designation: "Director & Chief Financial Officer, Pramukh Group",
-    image: "/images/projects/ajitbhai.png",
+    image: "/images/projects/ajitbhai.webp",
     paragraphs: [
       "Financial discipline and transparent governance are the cornerstones of Pramukh Group’s long-standing credibility and sustainable growth.",
       "Our prudent financial management ensures robust project completion timelines, zero-compromise quality standards, and rock-solid investor confidence.",
@@ -156,7 +156,7 @@ export const LEADING_PROJECTS: LeadingProject[] = [
     description:
       "Surat's landmark residential addresses offering panoramic sky suites, landscaped podiums, high-street retail showrooms, double-height entrance lobbies, and seamless connectivity to Surat Airport.",
     video: "/videos/agastya-video.mp4",
-    map: "/images/projects/surat-map.jpg",
+    map: "/images/projects/surat-map.webp",
     googleMap: "https://maps.google.com/maps?q=VIP%20Road,%20Vesu,%20Surat,%20Gujarat&t=k&z=16&ie=UTF8&iwloc=&output=embed",
     href: "#enquiry",
     hotspots: [
@@ -165,7 +165,7 @@ export const LEADING_PROJECTS: LeadingProject[] = [
         label: "Pramukh Satva",
         title: "Pramukh Satva - 3 BHK Living Suites",
         placement: "Inside the property",
-        image: "/images/projects/satva.jpg",
+        image: "/images/projects/satva.webp",
         mapQuery: "Pramukh Satva, Vesu, Surat, Gujarat",
         x: 35,
         y: 12,
@@ -177,7 +177,7 @@ export const LEADING_PROJECTS: LeadingProject[] = [
         placement: "Outside the property",
         distance: "1.5 km",
         distanceLabel: "along Tapi Riverfront",
-        image: "/images/projects/one-tapi.jpg",
+        image: "/images/projects/one-tapi.webp",
         mapQuery: "One Tapi Pramukh, Gymkhana Road, Piplod, Surat",
         x: 58,
         y: 22,
@@ -189,7 +189,7 @@ export const LEADING_PROJECTS: LeadingProject[] = [
         placement: "Outside the property",
         distance: "500 m",
         distanceLabel: "from Revanta Corridor",
-        image: "/images/projects/orbit-5.jpg",
+        image: "/images/projects/orbit-5.webp",
         mapQuery: "Orbit 5, VIP Road, Surat, Gujarat",
         x: 65,
         y: 50,
@@ -199,7 +199,7 @@ export const LEADING_PROJECTS: LeadingProject[] = [
         label: "Pramukh Amaya",
         title: "Pramukh Amaya - Signature Living",
         placement: "Inside the property",
-        image: "/images/projects/amaya.jpg",
+        image: "/images/projects/amaya.webp",
         mapQuery: "Pramukh Amaya, Surat, Gujarat",
         x: 58,
         y: 78,
@@ -209,7 +209,7 @@ export const LEADING_PROJECTS: LeadingProject[] = [
         label: "Aranya III",
         title: "Aranya III Exclusive 3 BHK",
         placement: "Inside the property",
-        image: "/images/projects/aranya-iii.jpg",
+        image: "/images/projects/aranya-iii.webp",
         mapQuery: "Pramukh Aranya, Surat, Gujarat",
         x: 35,
         y: 88,
@@ -219,7 +219,7 @@ export const LEADING_PROJECTS: LeadingProject[] = [
         label: "Agastya Luxury",
         title: "Pramukh Agastya - 4 BHK Residences",
         placement: "Inside the property",
-        image: "/images/projects/agastya.jpg",
+        image: "/images/projects/agastya.webp",
         mapQuery: "Pramukh Agastya, VIP Road, Vesu, Surat, Gujarat",
         x: 12,
         y: 78,
@@ -229,7 +229,7 @@ export const LEADING_PROJECTS: LeadingProject[] = [
         label: "Revanta Towers",
         title: "Pramukh Revanta - 3 BHK Apartments",
         placement: "Inside the property",
-        image: "/images/projects/revanta.jpg",
+        image: "/images/projects/revanta.webp",
         mapQuery: "Pramukh Revanta, Vesu, Surat, Gujarat",
         x: 5,
         y: 50,
@@ -239,7 +239,7 @@ export const LEADING_PROJECTS: LeadingProject[] = [
         label: "Pramukh Zenith",
         title: "Pramukh Zenith - Iconic Towers",
         placement: "Inside the property",
-        image: "/images/projects/zenith.jpg",
+        image: "/images/projects/zenith.webp",
         mapQuery: "Pramukh Zenith, Surat, Gujarat",
         x: 12,
         y: 22,
@@ -253,7 +253,7 @@ export const LEADING_PROJECTS: LeadingProject[] = [
     description:
       "Vapi's premier residential & commercial complexes featuring expansive green landscapes, clubhouses, multi-purpose sports arenas, and luxury modern interiors.",
     video: "/videos/aranya-iii-video.mp4",
-    map: "/images/projects/vapi-map.jpg",
+    map: "/images/projects/vapi-map.webp",
     googleMap: "https://maps.google.com/maps?q=Vapi,%20Gujarat&t=k&z=15&ie=UTF8&iwloc=&output=embed",
     href: "#enquiry",
     hotspots: [
@@ -262,7 +262,7 @@ export const LEADING_PROJECTS: LeadingProject[] = [
         label: "Pramukh Ananta",
         title: "Pramukh Ananta - Luxury Living & Spaces",
         placement: "Inside the property",
-        image: "/images/projects/ananta.jpg",
+        image: "/images/projects/ananta.webp",
         mapQuery: "Pramukh Ananta, Vapi, Gujarat",
         x: 35,
         y: 14,
@@ -272,7 +272,7 @@ export const LEADING_PROJECTS: LeadingProject[] = [
         label: "Green County",
         title: "Green County Eco-Residences",
         placement: "Inside the property",
-        image: "/images/projects/green-county.jpg",
+        image: "/images/projects/green-county.webp",
         mapQuery: "Green County Pramukh, Vapi, Gujarat",
         x: 62,
         y: 50,
@@ -282,7 +282,7 @@ export const LEADING_PROJECTS: LeadingProject[] = [
         label: "Vedanta",
         title: "Pramukh Vedanta - 3 & 4 BHK Residences",
         placement: "Inside the property",
-        image: "/images/projects/vedanta.jpg",
+        image: "/images/projects/vedanta.webp",
         mapQuery: "Pramukh Vedanta, Vapi, Gujarat",
         x: 35,
         y: 86,
@@ -292,7 +292,7 @@ export const LEADING_PROJECTS: LeadingProject[] = [
         label: "Aristo",
         title: "Pramukh Aristo - 3, 4 & 5 BHK Apartments",
         placement: "Inside the property",
-        image: "/images/projects/aristo.jpg",
+        image: "/images/projects/aristo.webp",
         mapQuery: "Pramukh Aristo, Vapi, Gujarat",
         x: 8,
         y: 50,
@@ -306,7 +306,7 @@ export const LEADING_PROJECTS: LeadingProject[] = [
     description:
       "Nestled amidst nature, Pramukh Shivanta and Swagat deliver peaceful living with low-density residential towers, sports amenities, and lush gardens.",
     video: "/videos/one-tapi-video.mp4",
-    map: "/images/projects/silvasa-map.jpg",
+    map: "/images/projects/silvasa-map.webp",
     googleMap: "https://maps.google.com/maps?q=Silvassa,%20Dadra%20and%20Nagar%20Haveli&t=k&z=15&ie=UTF8&iwloc=&output=embed",
     href: "#enquiry",
     hotspots: [
@@ -315,7 +315,7 @@ export const LEADING_PROJECTS: LeadingProject[] = [
         label: "Shivanta",
         title: "Pramukh Shivanta - 2 & 3 BHK Apartments",
         placement: "Inside the property",
-        image: "/images/projects/shivanta.jpg",
+        image: "/images/projects/shivanta.webp",
         mapQuery: "Pramukh Shivanta, Silvassa",
         x: 35,
         y: 16,
@@ -325,7 +325,7 @@ export const LEADING_PROJECTS: LeadingProject[] = [
         label: "Yogi Woods",
         title: "Yogi Woods Hillside Residences",
         placement: "Inside the property",
-        image: "/images/projects/yogi-wood.jpg",
+        image: "/images/projects/yogi-wood.webp",
         mapQuery: "Pramukh Yogi Wood, Silvassa",
         x: 60,
         y: 72,
@@ -335,7 +335,7 @@ export const LEADING_PROJECTS: LeadingProject[] = [
         label: "Swagat",
         title: "Pramukh Swagat - 1.5 & 2 BHK Homes",
         placement: "Inside the property",
-        image: "/images/projects/swagat.jpg",
+        image: "/images/projects/swagat.webp",
         mapQuery: "Pramukh Swagat, Silvassa",
         x: 10,
         y: 72,
@@ -381,7 +381,7 @@ export const PORTFOLIO = {
 };
 
 export const PROMO = {
-  image: "/images/projects/marina-bay.jpg",
+  image: "/images/projects/marina-bay.webp",
   href: "#enquiry",
   cta: "View Marina Bay Pramukh",
 };
@@ -423,7 +423,7 @@ export const INVESTOR = {
 export const ENQUIRY = {
   title: "Have A Question?",
   lines: ["Built on trust, chosen for your next property.", "Contact Pramukh Group property advisors."],
-  image: "/images/projects/one-tapi.jpg",
+  image: "/images/projects/one-tapi.webp",
 };
 
 export const BLOGS = [
@@ -432,7 +432,7 @@ export const BLOGS = [
     tag: "SURAT",
     read: "5 mins read",
     title: "Pramukh Revanta & Agastya: Setting New Architectural Benchmarks in Surat",
-    image: "/images/projects/revanta.jpg",
+    image: "/images/projects/revanta.webp",
     href: "#",
   },
   {
@@ -440,7 +440,7 @@ export const BLOGS = [
     tag: "COMMERCIAL",
     read: "6 mins read",
     title: "Orbit 5: Why Businesses Are Choosing Pramukh Group's Premier Commercial Address",
-    image: "/images/projects/orbit-5.jpg",
+    image: "/images/projects/orbit-5.webp",
     href: "#",
   },
   {
@@ -448,7 +448,7 @@ export const BLOGS = [
     tag: "RIVERSIDE",
     read: "4 mins read",
     title: "One Tapi: Exclusive Riverside 5 BHK Residences & Penthouses Launched in Surat",
-    image: "/images/projects/one-tapi.jpg",
+    image: "/images/projects/one-tapi.webp",
     href: "#",
   },
 ];

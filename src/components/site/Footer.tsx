@@ -13,12 +13,14 @@ export function Footer() {
   const [showFloatingWidget, setShowFloatingWidget] = useState(false);
 
   useEffect(() => {
+    let ticking = false;
     const handleScroll = () => {
-      // Show floating chat button only after user scrolls past the Hero section (> 85% viewport height)
-      if (window.scrollY > window.innerHeight * 0.85) {
-        setShowFloatingWidget(true);
-      } else {
-        setShowFloatingWidget(false);
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setShowFloatingWidget(window.scrollY > window.innerHeight * 0.85);
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
@@ -32,16 +34,16 @@ export function Footer() {
       <div className="container-brand relative z-10">
         
         {/* Top Section: Brand & Navigation Columns with Compact Vertical Padding */}
-        <div className="grid gap-8 lg:grid-cols-12 items-start pb-6 border-b border-bronze/20">
+        <div className="grid gap-8 lg:grid-cols-12 items-start pb-8 border-b border-bronze/20 text-center lg:text-left">
           
           {/* Left Column: Brand Logo + Description + Social Links */}
-          <div className="lg:col-span-4 space-y-4">
-            <Logo tone="dark" />
-            <p className="max-w-xs text-[0.82rem] leading-[1.7] text-ink/80 font-light">
+          <div className="lg:col-span-4 space-y-4 flex flex-col items-center lg:items-start text-center lg:text-left">
+            <Logo tone="dark" className="items-center lg:items-start" />
+            <p className="max-w-sm text-[0.82rem] leading-[1.7] text-ink/80 font-light text-center lg:text-left mx-auto lg:mx-0">
               Pramukh Group is the landmark real estate developer across Surat, Vapi, and Silvassa, creating enduring spaces with All-In Ownership™.
             </p>
             {/* Social Links */}
-            <div className="flex items-center gap-2.5 pt-1">
+            <div className="flex items-center justify-center lg:justify-start gap-2.5 pt-1 w-full">
               <a
                 href="https://linkedin.com"
                 target="_blank"
@@ -82,26 +84,26 @@ export function Footer() {
           </div>
 
           {/* Right Column: Framer Directory Columns */}
-          <div className="lg:col-span-8 grid gap-6 sm:grid-cols-2 md:grid-cols-4">
+          <div className="lg:col-span-8 grid gap-8 sm:grid-cols-2 md:grid-cols-4 pt-4 lg:pt-0">
             
             {/* Column 1: SURAT HQ */}
-            <div className="space-y-2.5">
-              <h3 className="text-[0.68rem] font-bold uppercase tracking-[0.24em] text-bronze font-display">
+            <div className="space-y-2.5 flex flex-col items-center sm:items-start text-center sm:text-left">
+              <h3 className="text-[0.70rem] font-semibold uppercase tracking-[0.24em] text-bronze font-serif">
                 SURAT HQ
               </h3>
-              <p className="text-[0.78rem] leading-[1.65] text-ink/80 font-light">
+              <p className="text-[0.78rem] leading-[1.65] text-ink/80 font-light max-w-xs sm:max-w-none">
                 10th Floor, Orbit-2, Beside Celestial Dreams, Vesu Canal Road, Vesu, Surat-395007.
               </p>
-              <div className="space-y-1 pt-1">
+              <div className="space-y-1 pt-1 flex flex-col items-center sm:items-start">
                 <a
                   href="tel:+919978986778"
-                  className="block text-[0.76rem] font-medium text-ink transition-colors hover:text-bronze"
+                  className="flex items-center justify-center sm:justify-start text-[0.76rem] font-medium text-ink transition-colors hover:text-bronze"
                 >
                   <Phone className="mr-1.5 inline h-3 w-3 text-bronze" /> +91 99789 86778
                 </a>
                 <a
                   href="mailto:inquiry@mypramukh.com"
-                  className="block text-[0.74rem] font-medium text-ink transition-colors hover:text-bronze break-all"
+                  className="flex items-center justify-center sm:justify-start text-[0.74rem] font-medium text-ink transition-colors hover:text-bronze break-all"
                 >
                   <Mail className="mr-1.5 inline h-3 w-3 text-bronze" /> inquiry@mypramukh.com
                 </a>
@@ -109,23 +111,23 @@ export function Footer() {
             </div>
 
             {/* Column 2: VAPI OFFICE */}
-            <div className="space-y-2.5">
-              <h3 className="text-[0.68rem] font-bold uppercase tracking-[0.24em] text-bronze font-display">
+            <div className="space-y-2.5 flex flex-col items-center sm:items-start text-center sm:text-left">
+              <h3 className="text-[0.70rem] font-semibold uppercase tracking-[0.24em] text-bronze font-serif">
                 VAPI OFFICE
               </h3>
-              <p className="text-[0.78rem] leading-[1.65] text-ink/80 font-light">
+              <p className="text-[0.78rem] leading-[1.65] text-ink/80 font-light max-w-xs sm:max-w-none">
                 Pramukh House, Vapi – Daman Main Rd, Chala, Vapi – 396191.
               </p>
-              <div className="space-y-1 pt-1">
+              <div className="space-y-1 pt-1 flex flex-col items-center sm:items-start">
                 <a
                   href="tel:+917406258000"
-                  className="block text-[0.76rem] font-medium text-ink transition-colors hover:text-bronze"
+                  className="flex items-center justify-center sm:justify-start text-[0.76rem] font-medium text-ink transition-colors hover:text-bronze"
                 >
                   <Phone className="mr-1.5 inline h-3 w-3 text-bronze" /> +91 74062 58000
                 </a>
                 <a
                   href="mailto:inquiry@pramukh.co.in"
-                  className="block text-[0.74rem] font-medium text-ink transition-colors hover:text-bronze break-all"
+                  className="flex items-center justify-center sm:justify-start text-[0.74rem] font-medium text-ink transition-colors hover:text-bronze break-all"
                 >
                   <Mail className="mr-1.5 inline h-3 w-3 text-bronze" /> inquiry@pramukh.co.in
                 </a>
@@ -133,23 +135,23 @@ export function Footer() {
             </div>
 
             {/* Column 3: SILVASSA OFFICE */}
-            <div className="space-y-2.5">
-              <h3 className="text-[0.68rem] font-bold uppercase tracking-[0.24em] text-bronze font-display">
+            <div className="space-y-2.5 flex flex-col items-center sm:items-start text-center sm:text-left">
+              <h3 className="text-[0.70rem] font-semibold uppercase tracking-[0.24em] text-bronze font-serif">
                 SILVASSA OFFICE
               </h3>
-              <p className="text-[0.78rem] leading-[1.65] text-ink/80 font-light">
+              <p className="text-[0.78rem] leading-[1.65] text-ink/80 font-light max-w-xs sm:max-w-none">
                 Pramukh Realty Shop 1–4, Building A, Yogi Milan, Silvassa, Dadra and Nagar Haveli.
               </p>
-              <div className="space-y-1 pt-1">
+              <div className="space-y-1 pt-1 flex flex-col items-center sm:items-start">
                 <a
                   href="tel:+916359778000"
-                  className="block text-[0.76rem] font-medium text-ink transition-colors hover:text-bronze"
+                  className="flex items-center justify-center sm:justify-start text-[0.76rem] font-medium text-ink transition-colors hover:text-bronze"
                 >
                   <Phone className="mr-1.5 inline h-3 w-3 text-bronze" /> +91 63597 78000
                 </a>
                 <a
                   href="mailto:inquiry.silvassa@pramukh.co.in"
-                  className="block text-[0.74rem] font-medium text-ink transition-colors hover:text-bronze break-all"
+                  className="flex items-center justify-center sm:justify-start text-[0.74rem] font-medium text-ink transition-colors hover:text-bronze break-all"
                 >
                   <Mail className="mr-1.5 inline h-3 w-3 text-bronze" /> inquiry.silvassa@pramukh.co.in
                 </a>
@@ -157,11 +159,11 @@ export function Footer() {
             </div>
 
             {/* Column 4: DIRECTORY LINKS */}
-            <div className="space-y-2.5">
-              <h3 className="text-[0.68rem] font-bold uppercase tracking-[0.24em] text-bronze font-display">
+            <div className="space-y-2.5 flex flex-col items-center sm:items-start text-center sm:text-left">
+              <h3 className="text-[0.70rem] font-semibold uppercase tracking-[0.24em] text-bronze font-serif">
                 QUICK DIRECTORY
               </h3>
-              <ul className="space-y-1.5 text-[0.78rem] text-ink/80 font-light">
+              <ul className="space-y-1.5 text-[0.78rem] text-ink/80 font-light flex flex-col items-center sm:items-start">
                 <li>
                   <a href="#abt1" className="transition-colors hover:text-bronze">
                     Who We Are
@@ -195,14 +197,14 @@ export function Footer() {
 
         {/* Middle Bar: Copyright & Disclaimer Toggle (Compact Padding) */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3 py-4 text-[0.72rem] text-ink/60 text-center sm:text-left">
-          <p className="font-mono uppercase tracking-[0.2em] text-[0.65rem]">
+          <p className="font-serif uppercase tracking-[0.2em] text-[0.68rem] text-ink/75">
             © {new Date().getFullYear()} PRAMUKH GROUP. ALL RIGHTS RESERVED.
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6">
             <button
               type="button"
               onClick={() => setOpenDisclaimer(!openDisclaimer)}
-              className="uppercase tracking-[0.2em] font-semibold text-bronze transition-colors hover:text-ink cursor-pointer"
+              className="uppercase tracking-[0.2em] font-semibold text-bronze transition-colors hover:text-ink cursor-pointer font-serif text-[0.68rem]"
             >
               {openDisclaimer ? "— HIDE DISCLAIMER" : "+ READ DISCLAIMER"}
             </button>
@@ -219,9 +221,9 @@ export function Footer() {
         )}
       </div>
 
-      {/* Framer Oversized Bottom Wordmark - Tight Luxury Letter Spacing */}
-      <div className="relative w-full overflow-hidden leading-none pt-2 pb-0 flex justify-center items-center pointer-events-none select-none">
-        <h1 className="text-[clamp(3.8rem,16.5vw,16rem)] font-black uppercase whitespace-nowrap tracking-tighter text-[#AD945E] font-display transition-all duration-700">
+      {/* Framer Oversized Bottom Wordmark - Brand Serif Typography & Logo Color */}
+      <div className="relative w-full overflow-hidden leading-none pt-4 pb-0 flex justify-center items-center pointer-events-none select-none">
+        <h1 className="text-[clamp(3rem,13.5vw,12.5rem)] font-medium uppercase whitespace-nowrap tracking-[0.18em] text-[#33312E] font-serif transition-all duration-700">
           PRAMUKH
         </h1>
       </div>
@@ -239,17 +241,17 @@ export function Footer() {
         <a
           href="#enquiry"
           aria-label="Enquire with Pramukh Property Advisor"
-          className="group relative flex h-16 w-16 sm:h-24 sm:w-24 items-center justify-center transition-all duration-300 hover:scale-105"
+          className="group relative flex h-20 w-20 sm:h-28 sm:w-28 items-center justify-center transition-all duration-300 hover:scale-105"
         >
-          {/* Framer Circular Text Pro Rotating SVG Ring - Luxury Brown Color */}
-          <div className="absolute inset-0 flex items-center justify-center animate-[spin_12s_linear_infinite] pointer-events-none select-none">
+          {/* Framer Circular Text Pro Rotating SVG Ring - High-Visibility Luxury Gold/Bronze */}
+          <div className="absolute inset-0 flex items-center justify-center animate-[spin_14s_linear_infinite] pointer-events-none select-none">
             <svg viewBox="0 0 160 160" className="h-full w-full">
               <path
                 id="pramukhCircularPath"
                 d="M 80, 80 m -58, 0 a 58,58 0 1,1 116,0 a 58,58 0 1,1 -116,0"
                 fill="none"
               />
-              <text className="text-[10px] font-bold uppercase tracking-[0.24em] fill-[#5C4033]">
+              <text className="text-[12px] font-semibold uppercase tracking-[0.16em] fill-[#8C7545] font-serif">
                 <textPath href="#pramukhCircularPath" startOffset="0%">
                   PRAMUKH GROUP • ENQUIRE NOW • WELCOME TO PRAMUKH •
                 </textPath>
@@ -258,8 +260,8 @@ export function Footer() {
           </div>
 
           {/* Center Pramukh Emblem Button - 100% Geometrically Centered Icon */}
-          <div className="flex h-10 w-10 sm:h-14 sm:w-14 items-center justify-center rounded-full bg-white border-2 border-[#5C4033]/50 shadow-[0_10px_30px_rgba(0,0,0,0.15)] transition-all duration-300 group-hover:bg-[#5C4033] group-hover:border-[#5C4033] group-hover:shadow-[0_12px_36px_rgba(92,64,51,0.4)]">
-            <svg viewBox="240 0 885 410" className="h-4.5 sm:h-6 w-auto fill-[#5C4033] transition-colors duration-300 group-hover:fill-white drop-shadow-sm">
+          <div className="flex h-11 w-11 sm:h-16 sm:w-16 items-center justify-center rounded-full bg-white border-2 border-[#AD945E]/60 shadow-[0_10px_30px_rgba(173,148,94,0.25)] transition-all duration-300 group-hover:bg-[#AD945E] group-hover:border-[#AD945E] group-hover:shadow-[0_12px_36px_rgba(173,148,94,0.45)]">
+            <svg viewBox="240 0 885 410" className="h-5 sm:h-7 w-auto fill-[#AD945E] transition-colors duration-300 group-hover:fill-white drop-shadow-sm">
               <path d="M712.24 224.63l0 36.1c0,0 108.25,16.5 123.84,129.03l60.14 0c0,0 -17.59,-8.96 -25.4,-30.49 -7.82,-21.57 -46.83,-120.06 -158.57,-134.64zm-245.29 -189.74l142.11 0 0 142.57c-103.09,-0.85 -139.19,-13.29 -142.11,-142.57zm-61.68 -34.89c0,0 27.52,18.54 27.76,53.04 0,3.32 0.24,6.44 0.57,9.4 9.57,128.22 64.5,146.25 175.46,147.65 0,0 -0.37,146.58 -0.54,146.58 0,0 -5.85,31.07 -21.97,33.07l22.51 0 19.65 0 15.08 0 0 -197.06 0 -175.25 0 -17.44 -195.19 0 -16.48 0 -26.85 0zm188.03 224.63l0 36.1c0,0 -108.21,16.5 -123.76,129.03l-60.22 0c0,0 17.64,-8.96 25.5,-30.49 7.76,-21.57 46.83,-120.06 158.48,-134.64zm103.17 -47.17l0 -142.57 142.07 0c-2.82,129.25 -38.94,141.69 -142.07,142.57zm177 -177.45l-16.53 0 -195.11 0 0 17.4 0 175.28 0 197.06 15 0 19.64 0 22.57 0c-16.18,-2 -21.93,-33.1 -21.93,-33.1 -0.21,0 -0.64,-146.54 -0.64,-146.54 111.03,-1.41 165.89,-19.44 175.46,-147.67 0.37,-2.96 0.61,-6.08 0.61,-9.4 0.26,-34.5 27.78,-53.03 27.78,-53.03l-26.85 0z" />
             </svg>
           </div>

@@ -3,6 +3,7 @@ import { HERO, TOP_LINKS } from "@/data/site";
 import { useGsap } from "@/hooks/use-gsap";
 import { D, EASE } from "@/lib/motion";
 import { cn } from "@/lib/utils";
+import { LazyVideo } from "./LazyVideo";
 
 const HERO_SENTENCES = [
   "BUILT ON TRUST. CHOSEN FOR YOUR NEXT PROPERTY.",
@@ -12,23 +13,22 @@ const HERO_SENTENCES = [
 ];
 
 export function Hero() {
-  const videoRef = useRef<HTMLVideoElement | null>(null);
   const [index, setIndex] = useState(0);
   const [fade, setFade] = useState(true);
   const [scrolledAway, setScrolledAway] = useState(false);
 
-  // Set start time at 45 seconds and 1.25x speed
-  useEffect(() => {
-    const v = videoRef.current;
-    if (v) {
-      v.currentTime = 45;
-      v.playbackRate = 1.25;
-    }
-  }, []);
-
   // Fade out Hero bottom quick links on scroll to seamlessly hand off to sticky Header navigation
   useEffect(() => {
-    const onScroll = () => setScrolledAway(window.scrollY > 150);
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setScrolledAway(window.scrollY > 150);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -72,42 +72,15 @@ export function Hero() {
 
   return (
     <section ref={scope} className="relative h-[100svh] w-full overflow-hidden bg-ink select-none">
-      {/* High-definition 1080P Agastya video background - starts at 45s, 1.25x speed, zero play/pause controls */}
+      {/* 4-minute Agastya hero video background - plays from start at 1.25x speed */}
       <div data-hero-media className="absolute inset-0 h-[115%] w-full pointer-events-none overflow-hidden will-change-transform z-0">
-        <video
-          ref={videoRef}
-          onLoadedMetadata={(e) => {
-            const v = e.currentTarget;
-            v.currentTime = 45;
-            v.playbackRate = 1.25;
-          }}
-          onCanPlay={(e) => {
-            const v = e.currentTarget;
-            if (v.currentTime < 45) v.currentTime = 45;
-            v.playbackRate = 1.25;
-          }}
-          onTimeUpdate={(e) => {
-            const v = e.currentTarget;
-            if (v.duration && v.currentTime >= v.duration - 15) {
-              v.currentTime = 45;
-            }
-          }}
-          onEnded={(e) => {
-            const v = e.currentTarget;
-            v.currentTime = 45;
-            v.playbackRate = 1.25;
-            void v.play();
-          }}
+        <LazyVideo
+          src={HERO.video}
+          startTime={45}
+          playbackRate={0.5}
+          eager={true}
           className="h-full w-full object-cover pointer-events-none border-0 outline-none select-none"
-          poster={HERO.poster}
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="auto"
-        >
-          <source src={`${HERO.video}#t=45`} type="video/mp4" />
-        </video>
+        />
       </div>
 
       {/* Dark gradient overlay + pointer events shield preventing touch/click play controls */}
@@ -115,10 +88,10 @@ export function Hero() {
 
       {/* Premium headline container with ultra-smooth luxury text reveal */}
       <div data-hero-copy className="absolute inset-0 z-20 flex items-center justify-center px-6 text-center text-white pointer-events-none">
-        <div className="mx-auto max-w-4xl text-center w-full overflow-hidden py-4">
+        <div className="mx-auto max-w-4xl text-center w-full overflow-hidden py-4 flex items-center justify-center">
           <h1
             className={cn(
-              "text-center text-[clamp(1.05rem,2.4vw,1.75rem)] font-semibold uppercase tracking-[0.22em] text-white transition-all duration-[1000ms] ease-[var(--ease-brand)] [text-shadow:0_4px_24px_rgba(0,0,0,0.8)]",
+              "text-center text-[clamp(1.02rem,3.2vw,1.75rem)] font-semibold uppercase tracking-[0.20em] sm:tracking-[0.24em] text-white transition-all duration-[1000ms] ease-[var(--ease-brand)] [text-shadow:0_4px_24px_rgba(0,0,0,0.85)] max-w-xl md:max-w-4xl mx-auto leading-relaxed",
               fade
                 ? "translate-y-0 opacity-100 filter-none"
                 : "translate-y-6 opacity-0 blur-[3px]"
@@ -132,11 +105,11 @@ export function Hero() {
       <a
         data-hero-chrome
         href={HERO.cta.href}
-        className="group absolute bottom-[16%] sm:bottom-[18%] left-1/2 z-20 -translate-x-[52%] text-white md:bottom-[16%] lg:bottom-24 whitespace-nowrap"
+        className="group absolute bottom-14 sm:bottom-[18%] left-1/2 z-20 -translate-x-1/2 text-white md:bottom-[16%] lg:bottom-24 whitespace-nowrap text-center flex items-center justify-center"
       >
-        <span className="flex items-center gap-2.5 sm:gap-3.5 text-[0.6rem] sm:text-[0.68rem] font-medium uppercase tracking-[0.25em] sm:tracking-[0.30em] transition-colors duration-300 group-hover:text-white/80 whitespace-nowrap">
+        <span className="flex items-center justify-center gap-3 sm:gap-3.5 text-[0.66rem] sm:text-[0.72rem] font-medium uppercase tracking-[0.26em] sm:tracking-[0.30em] transition-colors duration-300 group-hover:text-white/80 whitespace-nowrap">
           <i className="diamond shrink-0 transition-transform duration-500 group-hover:rotate-[135deg]" />
-          <span className="whitespace-nowrap -mr-[0.30em]">{HERO.cta.label}</span>
+          <span>{HERO.cta.label}</span>
           <i className="diamond shrink-0 transition-transform duration-500 group-hover:rotate-[135deg]" />
         </span>
       </a>
@@ -166,3 +139,4 @@ export function Hero() {
     </section>
   );
 }
+

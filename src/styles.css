@@ -53,6 +53,8 @@
 
   --font-sans: "Inter", "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
   --font-display: "Inter", "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
+  --font-serif: "Cinzel", "Cormorant Garamond", "Times New Roman", Georgia, serif;
+  --font-cinzel: "Cinzel", "Times New Roman", Georgia, serif;
 
   --ease-brand: cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
@@ -258,16 +260,24 @@
 /* Scroll reveal */
 @utility reveal {
   opacity: 0;
-  transform: translateY(38px);
+  transform: translate3d(0, 32px, 0);
   transition:
-    opacity 0.9s var(--ease-brand),
-    transform 0.9s var(--ease-brand);
-  will-change: opacity, transform;
+    opacity 0.85s var(--ease-brand),
+    transform 0.85s var(--ease-brand);
 }
 
 @utility reveal-in {
   opacity: 1;
-  transform: none;
+  transform: translate3d(0, 0, 0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 /* Image zoom-on-hover wrapper */

@@ -89,7 +89,16 @@ export function Header() {
 
   useEffect(() => {
     // Reveal center navigation links once scrolled past the Hero section (> 450px)
-    const onScroll = () => setScrolled(window.scrollY > 450);
+    let ticking = false;
+    const onScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 450);
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);

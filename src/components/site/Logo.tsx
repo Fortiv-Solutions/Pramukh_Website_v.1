@@ -8,7 +8,7 @@ export function Logo({ className, tone = "light" }: { className?: string; tone?:
         src="/pramukh-logo.png"
         alt="Pramukh — A Class of Its Own"
         className={cn(
-          "h-13 w-auto object-contain transition-all duration-300 md:h-16",
+          "h-12 w-auto object-contain transition-all duration-300 md:h-15",
           tone === "light"
             ? "brightness-[2.4] contrast-[1.25] drop-shadow-[0_2px_14px_rgba(0,0,0,0.95)]"
             : "filter-none",

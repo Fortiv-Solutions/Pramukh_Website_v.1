@@ -2,6 +2,7 @@ import { useState } from "react";
 import { PORTFOLIO, PROMO } from "@/data/site";
 import { Reveal } from "./Reveal";
 import { RevealImage } from "./RevealImage";
+import { LazyVideo } from "./LazyVideo";
 import { cn } from "@/lib/utils";
 
 export function Portfolio() {
@@ -25,44 +26,14 @@ export function Portfolio() {
                 className="group relative block h-full overflow-hidden bg-ink"
               >
                 <div className={cn("relative w-full", i === 0 ? "aspect-[16/9]" : "aspect-[4/3]")}>
-                  <video
+                  <LazyVideo
+                    src={item.video}
+                    startTime={40}
+                    playbackRate={1.25}
                     className={cn(
                       "h-full w-full object-cover transition-transform duration-[1400ms] ease-[var(--ease-brand)]",
                       hover === i ? "scale-[1.06]" : "scale-100",
                     )}
-                    src={item.video}
-                    onLoadedMetadata={(e) => {
-                      const v = e.currentTarget;
-                      v.playbackRate = 1.25;
-                      if (v.duration && !isNaN(v.duration)) {
-                        if (v.duration > 42) {
-                          v.currentTime = 40;
-                        } else {
-                          v.currentTime = 0;
-                        }
-                      }
-                    }}
-                    onCanPlay={(e) => {
-                      const v = e.currentTarget;
-                      v.playbackRate = 1.25;
-                    }}
-                    onEnded={(e) => {
-                      const v = e.currentTarget;
-                      v.playbackRate = 1.25;
-                      if (v.duration && !isNaN(v.duration)) {
-                        if (v.duration > 42) {
-                          v.currentTime = 40;
-                        } else {
-                          v.currentTime = 0;
-                        }
-                      }
-                      void v.play();
-                    }}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    preload="auto"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/25 to-transparent transition-opacity duration-500 group-hover:from-black/85" />
                 </div>
