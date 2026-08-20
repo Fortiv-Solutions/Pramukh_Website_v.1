@@ -1,5 +1,7 @@
 import { CHAIRMAN } from "@/data/site";
 import { Reveal } from "./Reveal";
+import { AnimatedText } from "./AnimatedText";
+import { RevealImage } from "./RevealImage";
 
 export function ChairmanMessage() {
   return (
@@ -13,9 +15,14 @@ export function ChairmanMessage() {
           </svg>
           <div className="mt-4 space-y-5">
             {CHAIRMAN.paragraphs.map((p) => (
-              <p key={p} className="text-[0.95rem] leading-[1.95] text-body">
-                {p}
-              </p>
+              <AnimatedText
+                key={p}
+                as="p"
+                text={p}
+                split="line"
+                stagger={0.08}
+                className="text-[0.95rem] leading-[1.95] text-body"
+              />
             ))}
           </div>
           <div className="mt-9">
@@ -26,14 +33,13 @@ export function ChairmanMessage() {
           </div>
         </Reveal>
 
-        <Reveal delay={140} className="img-zoom relative mx-auto w-full max-w-[400px]">
-          <img
-            src={CHAIRMAN.image}
-            alt={`${CHAIRMAN.name}, ${CHAIRMAN.designation}, Oberoi Realty`}
-            loading="lazy"
-            className="aspect-[470/559] w-full object-cover"
-          />
-        </Reveal>
+        <RevealImage
+          src={CHAIRMAN.image}
+          alt={`${CHAIRMAN.name}, ${CHAIRMAN.designation}, Oberoi Realty`}
+          direction="up"
+          parallax={8}
+          className="mx-auto aspect-[470/559] w-full max-w-[400px]"
+        />
       </div>
     </section>
   );
