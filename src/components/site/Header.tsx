@@ -25,14 +25,16 @@ export function Header() {
     };
   }, [menuOpen]);
 
-  const dark = scrolled || menuOpen;
+  const dark = true;
 
   return (
     <>
       <header
         className={cn(
           "fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow] duration-500",
-          dark ? "bg-white shadow-[0_1px_12px_rgba(0,0,0,0.06)]" : "bg-transparent",
+          scrolled || menuOpen
+            ? "bg-white shadow-[0_1px_12px_rgba(0,0,0,0.06)]"
+            : "bg-white",
         )}
       >
         <div className="grid h-[52px] grid-cols-[76px_1fr_76px] items-center px-4 sm:px-6 lg:h-[47px] lg:px-3 xl:px-6">
@@ -54,9 +56,7 @@ export function Header() {
                     onClick={() => setActiveLink(item.href)}
                     className={cn(
                       "relative block whitespace-nowrap py-4 text-[8px] font-semibold uppercase tracking-[0.18em] transition-colors duration-300 xl:text-[9px]",
-                      dark
-                        ? active ? "text-bronze" : "text-ink/70 hover:text-bronze"
-                        : active ? "text-bronze-light" : "text-white/90 hover:text-bronze-light",
+                      active ? "text-bronze" : "text-ink/70 hover:text-bronze",
                     )}
                   >
                     {item.label}
