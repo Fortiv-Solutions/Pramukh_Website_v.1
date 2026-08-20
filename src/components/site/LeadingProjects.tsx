@@ -119,7 +119,7 @@ function ProjectBlock({ project, index }: { project: LeadingProject; index: numb
           <video
             className="absolute inset-0 h-full w-full object-cover"
             src={project.video}
-            poster={project.map}
+            poster={first.image}
             autoPlay
             loop
             muted
@@ -131,7 +131,7 @@ function ProjectBlock({ project, index }: { project: LeadingProject; index: numb
         <div className="relative overflow-hidden bg-cream-soft py-12 lg:py-16 [direction:ltr]">
           <MapCanvas />
 
-          <div className="relative grid items-center gap-8 px-6 md:px-10 lg:grid-cols-[1fr_230px] lg:gap-8">
+          <div className="relative grid items-center gap-8 px-6 md:px-10 lg:pr-20 lg:grid-cols-[1fr_230px] lg:gap-8">
             {/* Markers */}
             <div className="relative min-h-[340px] lg:min-h-[470px]">
               {project.hotspots.map((h) => {
@@ -159,7 +159,7 @@ function ProjectBlock({ project, index }: { project: LeadingProject; index: numb
                     </span>
                     <span
                       className={cn(
-                        "mt-2 block max-w-[86px] text-[0.55rem] leading-tight transition-colors duration-300",
+                        "mt-2 block w-[84px] text-[0.55rem] leading-tight transition-colors duration-300",
                         isActive ? "font-semibold text-ink" : "text-body group-hover:text-ink",
                       )}
                     >
@@ -200,7 +200,7 @@ function ProjectBlock({ project, index }: { project: LeadingProject; index: numb
           </div>
 
           {/* Arrows */}
-          <div className="relative mt-8 flex items-center justify-center gap-3 px-6 md:px-10 lg:justify-end">
+          <div className="relative mt-8 flex items-center justify-center gap-3 px-6 md:px-10 lg:justify-end lg:pr-20">
             <button
               type="button"
               onClick={() => step(-1)}
