@@ -28,7 +28,14 @@ export function AboutSection() {
         <Reveal className="mx-auto max-w-3xl text-center">
           <h2 className="eyebrow">{ABOUT_INTRO.eyebrow}</h2>
           <div className="mx-auto mt-5 h-px w-12 bg-bronze/60" />
-          <p className="mt-6 text-[0.95rem] leading-[1.95] text-body md:text-base">{ABOUT_INTRO.body}</p>
+          <AnimatedText
+            as="p"
+            text={ABOUT_INTRO.body}
+            split="line"
+            stagger={0.09}
+            className="mt-6 block text-[0.95rem] leading-[1.95] text-body md:text-base"
+          />
+
         </Reveal>
       </div>
 
