@@ -31,7 +31,7 @@ export function Header() {
       <header
         className={cn(
           "fixed inset-x-0 top-0 z-50 transition-[background-color,box-shadow,padding] duration-500",
-          dark ? "bg-white/95 py-2 shadow-[0_1px_18px_rgba(0,0,0,0.07)] backdrop-blur-sm" : "bg-transparent py-4",
+          dark ? "bg-white py-3 shadow-[0_1px_18px_rgba(0,0,0,0.07)]" : "bg-transparent py-6",
         )}
       >
         <div className="container-brand flex items-center justify-between">
@@ -39,41 +39,28 @@ export function Header() {
             <Logo tone={dark ? "dark" : "light"} className="transition-colors duration-500" />
           </a>
 
-          <div
-            className={cn(
-              "flex items-center gap-1 rounded-full p-1 transition-colors duration-500",
-              dark ? "bg-cream" : "bg-black/35 backdrop-blur-[2px]",
-            )}
-          >
+          {/* Bronze pill with search + hamburger, as on the original */}
+          <div className="flex items-center rounded-full bg-bronze p-[3px]">
             <button
               type="button"
               onClick={() => setSearchOpen((v) => !v)}
               aria-label="Search"
-              className={cn(
-                "flex h-10 w-10 items-center justify-center rounded-full transition-colors duration-300",
-                dark ? "text-bronze hover:bg-white" : "text-white hover:bg-white/15",
-              )}
+              className="flex h-9 w-9 items-center justify-center rounded-full text-white transition-colors duration-300 hover:bg-white/15"
             >
-              {searchOpen ? <X className="h-[18px] w-[18px]" /> : <Search className="h-[18px] w-[18px]" />}
+              {searchOpen ? <X className="h-[17px] w-[17px]" /> : <Search className="h-[17px] w-[17px]" />}
             </button>
             <button
               type="button"
               onClick={() => setMenuOpen((v) => !v)}
               aria-label="Menu"
               aria-expanded={menuOpen}
-              className={cn(
-                "flex h-10 w-10 items-center justify-center rounded-full transition-colors duration-300",
-                menuOpen
-                  ? "bg-bronze text-white"
-                  : dark
-                    ? "bg-bronze/10 text-bronze hover:bg-bronze hover:text-white"
-                    : "bg-white/15 text-white hover:bg-white/25",
-              )}
+              className="flex h-9 w-9 items-center justify-center rounded-full bg-bronze-deep text-white transition-colors duration-300 hover:bg-ink"
             >
-              {menuOpen ? <X className="h-[18px] w-[18px]" /> : <Menu className="h-[18px] w-[18px]" />}
+              {menuOpen ? <X className="h-[17px] w-[17px]" /> : <Menu className="h-[17px] w-[17px]" />}
             </button>
           </div>
         </div>
+
 
         {/* Search drawer */}
         <div
