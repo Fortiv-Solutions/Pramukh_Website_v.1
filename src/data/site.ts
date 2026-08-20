@@ -1,5 +1,5 @@
 export const HERO = {
-  video: "/videos/agastya-hero.mp4",
+  video: "/images/projects/agastya-hero.mp4",
   poster: "/images/projects/agastya.jpg",
   headline: "BUILT ON TRUST. CHOSEN FOR YOUR NEXT PROPERTY.",
   cta: { label: "Explore Projects", href: "#abt2" },

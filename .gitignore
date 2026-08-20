@@ -35,6 +35,3 @@ dist-ssr
 download_assets.js
 pramukh-website-assets/
 /*.mp4
-*.tmp.mp4
-*.compressed.mp4
-
