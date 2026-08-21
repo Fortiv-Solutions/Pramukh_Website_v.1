@@ -56,7 +56,7 @@ export function LazyVideo({
           }
         }
       },
-      { rootMargin: "250px 0px 250px 0px", threshold: 0.05 }
+      { rootMargin: "800px 0px 800px 0px", threshold: 0.05 }
     );
 
     observer.observe(el);
@@ -131,7 +131,7 @@ export function LazyVideo({
           loop={loop}
           muted={muted}
           playsInline={playsInline}
-          preload={eager ? "auto" : "metadata"}
+          preload="auto"
           onLoadedMetadata={handleLoadedMetadata}
           onCanPlay={handleCanPlay}
           onEnded={handleEnded}
