@@ -267,6 +267,15 @@ function ProjectBlock({ project, index }: { project: LeadingProject; index: numb
                     {current.distanceLabel}
                   </p>
                 )}
+                {current.id === "rev-4" && (
+                  <a
+                    href="/one-tapi"
+                    className="mt-2.5 inline-flex items-center gap-1.5 text-[0.65rem] font-bold uppercase tracking-[0.2em] text-bronze hover:underline font-serif"
+                  >
+                    <span>Explore One Tapi Page</span>
+                    <span aria-hidden="true">→</span>
+                  </a>
+                )}
               </div>
 
               {/* Navigation controls */}

@@ -10,33 +10,53 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as OneTapiRouteImport } from './routes/one-tapi'
+import { Route as SuratRouteImport } from './routes/surat'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const OneTapiRoute = OneTapiRouteImport.update({
+  id: '/one-tapi',
+  path: '/one-tapi',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SuratRoute = SuratRouteImport.update({
+  id: '/surat',
+  path: '/surat',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/one-tapi': typeof OneTapiRoute
+  '/surat': typeof SuratRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/one-tapi': typeof OneTapiRoute
+  '/surat': typeof SuratRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/one-tapi': typeof OneTapiRoute
+  '/surat': typeof SuratRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/one-tapi' | '/surat'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/one-tapi' | '/surat'
+  id: '__root__' | '/' | '/one-tapi' | '/surat'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  OneTapiRoute: typeof OneTapiRoute
+  SuratRoute: typeof SuratRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +68,27 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/one-tapi': {
+      id: '/one-tapi'
+      path: '/one-tapi'
+      fullPath: '/one-tapi'
+      preLoaderRoute: typeof OneTapiRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/surat': {
+      id: '/surat'
+      path: '/surat'
+      fullPath: '/surat'
+      preLoaderRoute: typeof SuratRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  OneTapiRoute: OneTapiRoute,
+  SuratRoute: SuratRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

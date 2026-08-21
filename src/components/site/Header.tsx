@@ -25,7 +25,7 @@ const MENU_PREVIEWS: Record<string, PreviewData> = {
     subtitle: "Ultra-Luxury Waterfront Residences & High-Street Retail in Vesu & Piplod",
     tag: "SURAT FLAGSHIP",
     image: "/images/projects/agastya.jpg",
-    href: "#abt2",
+    href: "/surat",
   },
   "VAPI PROJECTS": {
     title: "Aranya III & Aristo",
@@ -71,8 +71,8 @@ const MENU_PREVIEWS: Record<string, PreviewData> = {
   },
   "CONTACT US": {
     title: "Connect With Our Team",
-    subtitle: "Schedule a VIP Private Site Tour or Visit Our Corporate HQ",
-    tag: "VIP ENQUIRY",
+    subtitle: "Schedule a Site Tour or Visit Our Corporate HQ",
+    tag: "ENQUIRY",
     image: "/images/projects/shivanta.jpg",
     href: "#enquiry",
   },
@@ -405,7 +405,7 @@ export function Header() {
               onClick={() => setMenuOpen(false)}
               className="rounded-full border border-[#AD945E] bg-white px-6 py-2 text-[0.66rem] font-bold uppercase tracking-[0.26em] text-[#AD945E] transition-all duration-300 hover:bg-[#AD945E] hover:text-white shadow-sm hover:shadow-md"
             >
-              Schedule Private Site Visit
+              Schedule Site Visit
             </a>
           </div>
         </div>

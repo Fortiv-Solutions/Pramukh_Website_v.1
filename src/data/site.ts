@@ -7,7 +7,7 @@ export const HERO = {
 
 export const MENU: { label: string; href: string; children?: { label: string; href: string }[] }[] = [
   { label: "What We Do", href: "#abt1" },
-  { label: "Surat Projects", href: "#abt2" },
+  { label: "Surat Projects", href: "/surat" },
   { label: "Vapi Projects", href: "#abt2" },
   { label: "Silvassa Projects", href: "#abt2" },
   { label: "Completed Projects", href: "#abt3" },
@@ -28,7 +28,7 @@ export const MENU: { label: string; href: string; children?: { label: string; hr
 
 export const TOP_LINKS = [
   { label: "What We Do", href: "#abt1" },
-  { label: "Surat", href: "#abt2" },
+  { label: "Surat", href: "/surat" },
   { label: "Vapi", href: "#abt2" },
   { label: "Silvassa", href: "#abt2" },
   { label: "All-In Ownership™", href: "#abt4" },
@@ -449,7 +449,7 @@ export const BLOGS = [
     read: "4 mins read",
     title: "One Tapi: Exclusive Riverside 5 BHK Residences & Penthouses Launched in Surat",
     image: "/images/projects/one-tapi.webp",
-    href: "#",
+    href: "/one-tapi",
   },
 ];
 
@@ -459,7 +459,7 @@ export const NEWS = [
     year: "2026",
     tag: "LAUNCH",
     title: "Pramukh Group Announces One Tapi Riverside 5 BHK Penthouses in Surat",
-    href: "#",
+    href: "/one-tapi",
   },
   {
     year: "2026",
@@ -479,7 +479,7 @@ export const CONTACT = {
 
 export const FOOTER_LINKS = [
   { label: "What We Do", href: "#abt1" },
-  { label: "Surat Projects", href: "#abt2" },
+  { label: "Surat Projects", href: "/surat" },
   { label: "Vapi Projects", href: "#abt2" },
   { label: "Silvassa Projects", href: "#abt2" },
   { label: "Completed Projects", href: "#abt3" },
@@ -492,7 +492,7 @@ export const SEO_LINKS = [
   { label: "Orbit 5 Surat Showrooms & Offices", href: "#" },
   { label: "Agastya 4 BHK Apartments Surat", href: "#" },
   { label: "Revanta 3 BHK Apartments Surat", href: "#" },
-  { label: "One Tapi Riverside 5 BHK Penthouses", href: "#" },
+  { label: "One Tapi Riverside 5 BHK Penthouses", href: "/one-tapi" },
   { label: "Aristo 3, 4 & 5 BHK Apartments Vapi", href: "#" },
   { label: "Shivanta 2-3 BHK Apartments Silvassa", href: "#" },
   { label: "Pramukh Group Completed Projects", href: "#" },

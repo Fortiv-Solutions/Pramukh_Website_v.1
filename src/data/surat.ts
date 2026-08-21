@@ -1,0 +1,470 @@
+export type SuratProjectCategory = "residential" | "commercial" | "industrial" | "hotel";
+
+export type SuratProjectStatus = "Ongoing" | "Completed" | "Proposed" | "Upcoming";
+
+export interface SuratProject {
+  id: string;
+  name: string;
+  sub: string;
+  category: SuratProjectCategory;
+  categoryLabel: string;
+  status: SuratProjectStatus;
+  location: string;
+  image: string;
+  href?: string;
+  featured?: boolean;
+  tag?: string;
+  specs?: string;
+  description: string;
+}
+
+export const SURAT_DATA = {
+  hero: {
+    eyebrow: "PRAMUKH GROUP · SURAT · SINCE 1993",
+    title: "SURAT",
+    subtitle: "Building Surat. Shaping its future.",
+    video: "/videos/linkedin-video.mp4",
+    poster: "/images/projects/agastya.jpg",
+    stats: [
+      { num: "60+", raw: 60, label: "Completed Projects", suffix: "+" },
+      { num: "17M+", raw: 17, label: "Sq. Ft. Built", suffix: "M+" },
+      { num: "30+", raw: 30, label: "Years of Trust", suffix: "+" },
+      { num: "22", raw: 22, label: "Ongoing Projects", suffix: "" },
+    ],
+  },
+  intro: {
+    eyebrow: "PRAMUKH IN SURAT",
+    headline:
+      "Having its presence in Surat from the past 13 years, Pramukh Group is one of the trusted real estate developers in the city.",
+    paragraph:
+      "The demand for its residential and commercial projects is a testament to its superior quality construction, architectural foresight, and timely delivery of landmark spaces. From iconic riverfront penthouses along the Tapi to high-street commercial hubs in Vesu and strategic industrial corridors, Pramukh shapes Surat's progressive skyline with All-In Ownership™.",
+    image: "/images/projects/reception.jpg",
+    caption: "Sales Experience Center, Vesu",
+  },
+  projectsIntro: {
+    eyebrow: "OUR SURAT PROJECTS",
+    headline: "A growing presence across Surat.",
+    description:
+      "Pramukh's Surat projects span ultra-luxury residential towers, high-street corporate retail hubs, strategic industrial logistics parks, and hospitality destinations across Vesu, Piplod, Pal, Godadara, and Hazira.",
+  },
+  filterCategories: [
+    { id: "all", label: "All Projects" },
+    { id: "residential", label: "Residential" },
+    { id: "commercial", label: "Commercial" },
+    { id: "industrial", label: "Industrial" },
+    { id: "hotel", label: "Hospitality" },
+  ] as const,
+  projects: [
+    // ----------------- ONGOING DEVELOPMENTS -----------------
+    {
+      id: "one-tapi",
+      name: "One Tapi",
+      sub: "5 BHK Penthouses · Piplod",
+      category: "residential",
+      categoryLabel: "Residential Flagship",
+      status: "Ongoing",
+      location: "Piplod, Tapi Riverfront",
+      image: "/images/projects/one-tapi.jpg",
+      href: "/one-tapi",
+      featured: true,
+      tag: "Flagship Penthouse Suites",
+      specs: "5 BHK Sky Residences & Penthouses",
+      description:
+        "Surat's most prestigious riverside sanctuary beside Surat City Gymkhana. Exclusive 180° uninterrupted water views, private elevator landings, and resort-level podium amenities.",
+    },
+    {
+      id: "agastya",
+      name: "Agastya",
+      sub: "4 BHK Apartments · Vesu",
+      category: "residential",
+      categoryLabel: "Luxury High-Rise",
+      status: "Ongoing",
+      location: "VIP Road, Vesu",
+      image: "/images/projects/agastya.jpg",
+      href: "#enquiry-section",
+      featured: true,
+      tag: "Prime Corridor",
+      specs: "4 BHK Imperial Residences",
+      description:
+        "Setting new benchmarks of architectural magnificence on VIP Road with expansive layouts, double-height entrance lobbies, and comprehensive sports facilities.",
+    },
+    {
+      id: "satva",
+      name: "Satva",
+      sub: "3 BHK Apartments · Vesu",
+      category: "residential",
+      categoryLabel: "Residential Suite",
+      status: "Ongoing",
+      location: "Vesu, Surat",
+      image: "/images/projects/satva.jpg",
+      href: "#enquiry-section",
+      featured: false,
+      tag: "Vesu Lifestyle",
+      specs: "3 BHK Premium Living",
+      description:
+        "Thoughtfully designed contemporary family residences crafted with landscaped wellness podiums, children's play arenas, and bespoke interiors.",
+    },
+    {
+      id: "aranya-iii",
+      name: "Aranya III",
+      sub: "Exclusive 3 BHK Apartments · Godadara",
+      category: "residential",
+      categoryLabel: "Residential",
+      status: "Ongoing",
+      location: "Godadara, Surat",
+      image: "/images/projects/aranya-iii.jpg",
+      href: "#enquiry-section",
+      featured: false,
+      tag: "Gated Community",
+      specs: "3 BHK Eco Residences",
+      description:
+        "Contemporary residential living with serene green gardens, multi-tier security, and seamless connectivity to Surat's industrial and ring road corridors.",
+    },
+    {
+      id: "central-park",
+      name: "Central Park",
+      sub: "3, 3.5, 4 & 4.5 BHK Apartments · Pal",
+      category: "residential",
+      categoryLabel: "Residential Township",
+      status: "Ongoing",
+      location: "Pal, Surat",
+      image: "/images/projects/amaya.jpg",
+      href: "#enquiry-section",
+      featured: false,
+      tag: "Parkside Living",
+      specs: "3 to 4.5 BHK Luxury Apartments",
+      description:
+        "Expansive residences nestled amidst lush landscaped botanical parklands, clubhouse, jogging tracks, and world-class leisure zones in Pal.",
+    },
+    {
+      id: "amaya",
+      name: "Amaya",
+      sub: "2–3 BHK Apartments · Palanpur",
+      category: "residential",
+      categoryLabel: "Modern Residences",
+      status: "Ongoing",
+      location: "Palanpur, Surat",
+      image: "/images/projects/amaya.jpg",
+      href: "#enquiry-section",
+      featured: false,
+      tag: "Urban Harmony",
+      specs: "2 & 3 BHK Modern Homes",
+      description:
+        "Efficient, sunlit homes crafted with pristine layouts, modern fixtures, rooftop leisure decks, and peaceful residential surroundings.",
+    },
+    {
+      id: "revanta",
+      name: "Revanta",
+      sub: "3 BHK Luxury Apartments · Vesu",
+      category: "residential",
+      categoryLabel: "Luxury Residential",
+      status: "Ongoing",
+      location: "Vesu, Surat",
+      image: "/images/projects/revanta.jpg",
+      href: "#enquiry-section",
+      featured: false,
+      tag: "Vesu Prime",
+      specs: "3 BHK Luxury Living",
+      description:
+        "A pinnacle of refined living in Vesu offering lifestyle podiums, infinity fitness centers, landscaped terraces, and close proximity to leading schools.",
+    },
+    {
+      id: "ananta",
+      name: "Ananta",
+      sub: "4 BHK Apartments · Vesu",
+      category: "residential",
+      categoryLabel: "Bespoke High-Rise",
+      status: "Ongoing",
+      location: "Vesu, Surat",
+      image: "/images/projects/ananta.jpg",
+      href: "#enquiry-section",
+      featured: false,
+      tag: "Signature Towers",
+      specs: "4 BHK Grand Suites",
+      description:
+        "Exclusive low-density high-rise living designed for elevated privacy, oversized decks, smart home provisions, and tranquil cross ventilation.",
+    },
+    {
+      id: "zenith",
+      name: "Zenith",
+      sub: "Showrooms · Offices · Cafes · Restaurants · Vesu",
+      category: "commercial",
+      categoryLabel: "Commercial Landmark",
+      status: "Ongoing",
+      location: "Vesu, Surat",
+      image: "/images/projects/zenith.jpg",
+      href: "#enquiry-section",
+      featured: true,
+      tag: "Iconic Business Hub",
+      specs: "Offices & High-Street Retail",
+      description:
+        "A marquee commercial statement in Vesu featuring glass curtain facades, high-speed passenger lifts, expansive retail frontage, and rooftop fine dining.",
+    },
+    {
+      id: "orbit-5",
+      name: "Orbit 5",
+      sub: "Offices · Shops · Showrooms · Vesu",
+      category: "commercial",
+      categoryLabel: "Commercial Hub",
+      status: "Ongoing",
+      location: "VIP Road, Vesu",
+      image: "/images/projects/orbit-5.jpg",
+      href: "#enquiry-section",
+      featured: false,
+      tag: "Business Boulevard",
+      specs: "Showrooms & Corporate Suites",
+      description:
+        "VIP Road's premier commercial destination, engineered for corporate headquarters, premier medical hubs, consulting firms, and luxury brand stores.",
+    },
+    {
+      id: "orbit-4",
+      name: "Orbit 4",
+      sub: "Offices · Shops · Showrooms · Bhatar",
+      category: "commercial",
+      categoryLabel: "Commercial",
+      status: "Ongoing",
+      location: "Bhatar, Surat",
+      image: "/images/projects/orbit-5.jpg",
+      href: "#enquiry-section",
+      featured: false,
+      tag: "Arterial Retail",
+      specs: "Commercial Retail & Office Spaces",
+      description:
+        "High-footfall commercial shopping arcade and modern corporate office suites situated along Bhatar's bustling arterial trade boulevard.",
+    },
+    {
+      id: "orbit-3",
+      name: "Orbit 3",
+      sub: "Showrooms · Offices · Cafes · Restaurants · Vesu",
+      category: "commercial",
+      categoryLabel: "Commercial",
+      status: "Ongoing",
+      location: "Vesu, Surat",
+      image: "/images/projects/orbit-5.jpg",
+      href: "#enquiry-section",
+      featured: false,
+      tag: "Lifestyle Commercial",
+      specs: "Boutique Retail & Offices",
+      description:
+        "Vesu's high-demand destination combining modern corporate offices with street-level retail, gourmet cafes, and basement multi-tier parking.",
+    },
+    {
+      id: "orbit-plaza",
+      name: "Orbit Plaza",
+      sub: "Shops · Showrooms · Godadara",
+      category: "commercial",
+      categoryLabel: "Commercial Retail",
+      status: "Ongoing",
+      location: "Godadara, Surat",
+      image: "/images/projects/orbit-5.jpg",
+      href: "#enquiry-section",
+      featured: false,
+      tag: "Retail Arcade",
+      specs: "High-Visibility Shops",
+      description:
+        "Designed to serve Godadara's thriving residential communities with high-visibility ground-level shops, convenience retail, and office studios.",
+    },
+    {
+      id: "anantara",
+      name: "Anantara",
+      sub: "Residential Plotting · Hazira",
+      category: "residential",
+      categoryLabel: "Plotted Enclave",
+      status: "Proposed",
+      location: "Hazira, Surat",
+      image: "/images/projects/green-county.jpg",
+      href: "#enquiry-section",
+      featured: false,
+      tag: "Masterplanned Plotted",
+      specs: "Gated Residential Plots",
+      description:
+        "A master-planned residential plotted enclave near Hazira offering customizable villa plots with wide internal asphalt roads and lifestyle landscaping.",
+    },
+    {
+      id: "samruddhi",
+      name: "Samruddhi",
+      sub: "Industrial Plotting · Niyol",
+      category: "industrial",
+      categoryLabel: "Industrial Logistics",
+      status: "Ongoing",
+      location: "Niyol, Surat",
+      image: "/images/projects/marina-bay.jpg",
+      href: "#enquiry-section",
+      featured: false,
+      tag: "Industrial Logistics",
+      specs: "Industrial & Warehouse Plots",
+      description:
+        "Strategic industrial and warehousing layout in Niyol equipped with heavy-vehicle access, 3-phase industrial power, and proximity to major freight corridors.",
+    },
+    {
+      id: "lemon-tree",
+      name: "Lemon Tree Hotel",
+      sub: "Luxury Business Hotel · Surat",
+      category: "hotel",
+      categoryLabel: "Hospitality Landmark",
+      status: "Ongoing",
+      location: "Surat Central",
+      image: "/images/projects/reception.jpg",
+      href: "#enquiry-section",
+      featured: false,
+      tag: "Hospitality",
+      specs: "Premium Hotel Rooms & Banquets",
+      description:
+        "An upscale hospitality destination offering premium suites, multi-cuisine dining, modern banquet halls, and executive meeting facilities in Surat.",
+    },
+    {
+      id: "treat-hotel",
+      name: "Treat Hotel",
+      sub: "Boutique Hospitality · Surat",
+      category: "hotel",
+      categoryLabel: "Hospitality",
+      status: "Upcoming",
+      location: "Surat Corridor",
+      image: "/images/projects/reception.jpg",
+      href: "#enquiry-section",
+      featured: false,
+      tag: "Hospitality Upcoming",
+      specs: "Boutique Leisure & Stays",
+      description:
+        "Upcoming boutique stay experience curated for business travelers and tourists seeking contemporary elegance, wellness amenities, and warm hospitality.",
+    },
+
+    // ----------------- COMPLETED DEVELOPMENTS (A legacy already built) -----------------
+    {
+      id: "aranya-completed",
+      name: "Aranya",
+      sub: "3 BHK Apartments · Parvat Patiya",
+      category: "residential",
+      categoryLabel: "Delivered Landmark",
+      status: "Completed",
+      location: "Parvat Patiya, Surat",
+      image: "/images/projects/aranya-iii.jpg",
+      href: "#enquiry-section",
+      featured: false,
+      tag: "100% Delivered",
+      specs: "3 BHK Delivered Homes",
+      description:
+        "Successfully delivered residential complex offering families comfortable community living, landscaped gardens, and timeless structural build quality.",
+    },
+    {
+      id: "aranya-ii-completed",
+      name: "Aranya II",
+      sub: "2–3 BHK Eco Apartments · Godadara",
+      category: "residential",
+      categoryLabel: "Delivered Landmark",
+      status: "Completed",
+      location: "Godadara, Surat",
+      image: "/images/projects/aranya-iii.jpg",
+      href: "#enquiry-section",
+      featured: false,
+      tag: "100% Delivered",
+      specs: "2 & 3 BHK Delivered Homes",
+      description:
+        "Delivered eco-conscious residential community in Godadara with vibrant landscaped spaces, children's park, and satisfied homeowner families.",
+    },
+    {
+      id: "vivanta-completed",
+      name: "Vivanta",
+      sub: "3 BHK Apartments · Vesu",
+      category: "residential",
+      categoryLabel: "Delivered Landmark",
+      status: "Completed",
+      location: "Vesu, Surat",
+      image: "/images/projects/revanta.jpg",
+      href: "#enquiry-section",
+      featured: false,
+      tag: "100% Delivered",
+      specs: "3 BHK Delivered Luxury",
+      description:
+        "One of Vesu's distinguished delivered residential addresses, embodying enduring architectural elegance and dependable maintenance standards.",
+    },
+    {
+      id: "orbit-2-completed",
+      name: "Orbit 2",
+      sub: "Showrooms · Offices · Vesu",
+      category: "commercial",
+      categoryLabel: "Delivered Commercial",
+      status: "Completed",
+      location: "Vesu Canal Road, Surat",
+      image: "/images/projects/orbit-5.jpg",
+      href: "#enquiry-section",
+      featured: false,
+      tag: "Surat HQ Address",
+      specs: "Delivered Corporate Complex",
+      description:
+        "Delivered corporate commercial complex hosting Pramukh Group's Surat Regional Headquarters on the 10th floor alongside leading enterprise offices.",
+    },
+    {
+      id: "orbit-1-completed",
+      name: "Orbit 1",
+      sub: "Showrooms · Offices · Punagam-Saroli Road",
+      category: "commercial",
+      categoryLabel: "Delivered Commercial",
+      status: "Completed",
+      location: "Punagam-Saroli Road, Surat",
+      image: "/images/projects/orbit-5.jpg",
+      href: "#enquiry-section",
+      featured: false,
+      tag: "100% Delivered",
+      specs: "Delivered Trade Center",
+      description:
+        "Pramukh's pioneer commercial development in Surat, establishing long-term business success for hundreds of retail and corporate establishments.",
+    },
+  ] as SuratProject[],
+  categoriesStory: [
+    {
+      title: "RESIDENTIAL",
+      tagline: "Homes designed around modern Surat living.",
+      description:
+        "From panoramic Tapi riverfront penthouses at One Tapi to luxury high-rises along Vesu and serene parkside communities in Pal, our residences prioritize cross-ventilation, abundant natural illumination, and resort-grade amenities.",
+      image: "/images/projects/agastya.jpg",
+    },
+    {
+      title: "COMMERCIAL",
+      tagline: "Workspaces and destinations shaping the city's growth.",
+      description:
+        "High-street retail flagships, column-free corporate suites, and landmark destinations like Zenith, Orbit 5, and Orbit 2 provide Surat's forward-thinking enterprises with addresses of distinction.",
+      image: "/images/projects/zenith.jpg",
+    },
+    {
+      title: "INDUSTRIAL",
+      tagline: "Strategic developments supporting Surat's expanding economy.",
+      description:
+        "Master-planned logistics and manufacturing enclaves designed with heavy-load bearing infrastructure, high-voltage power networks, and direct highway freight connectivity at Samruddhi.",
+      image: "/images/projects/marina-bay.jpg",
+    },
+    {
+      title: "HOSPITALITY",
+      tagline: "Spaces designed for stay, experience and connection.",
+      description:
+        "Curated hospitality landmarks including Lemon Tree and upcoming boutique stays engineered to accommodate Surat's burgeoning domestic business travel and international diaspora.",
+      image: "/images/projects/reception.jpg",
+    },
+  ],
+  rootedInSurat: {
+    eyebrow: "CITY CONNECTION",
+    title: "Rooted in Surat.",
+    lead:
+      "Surat is not merely a market for Pramukh Group — it is our home, our inspiration, and our long-term commitment.",
+    paragraphs: [
+      "Over the past 13 years, Pramukh Group has actively contributed to Surat's transition from a thriving mercantile center into a progressive, design-forward global metropolis.",
+      "Our deep understanding of local urban dynamics, lifestyle aspirations, and spatial demands enables us to construct developments in prime micro-markets like Vesu, Piplod, and Pal before they emerge into full prominence.",
+      "With every milestone delivered on time, we reaffirm our foundational promise: unwavering structural integrity, transparent governance, and All-In Ownership™.",
+    ],
+    mapImage: "/images/projects/surat-map.webp",
+  },
+  office: {
+    title: "PRAMUKH SURAT",
+    addressLine1: "10th Floor, Orbit-2, Beside Celestial Dreams,",
+    addressLine2: "Vesu Canal Road, Vesu, Surat – 395007, Gujarat.",
+    phone: "+91 99789 86778",
+    email: "inquiry@mypramukh.com",
+    googleMapsUrl:
+      "https://www.google.com/maps/place/Orbit+2+by+Pramukh/@21.1452124,72.7839631,17z/data=!3m1!4b1!4m16!1m9!4m8!1m0!1m6!1m2!1s0x3be0520962e8d3c3:0xdb9691cb85501c37!2sOrbit+2+by+Pramukh,+4QWP%2B3JM,+Vesu+Canal+Rd,+Bharthana,+Surat,+Gujarat+395007!2m2!1d72.786538!2d21.1452074!3m5!1s0x3be0520962e8d3c3:0xdb9691cb85501c37!8m2!3d21.1452074!4d72.786538!16s%2Fg%2F11c1xfzk57",
+  },
+  finalCta: {
+    title: "Discover Pramukh in Surat.",
+    subtitle: "Explore our residences, commercial spaces and developments across the city.",
+    backgroundImage: "/images/projects/one-tapi.jpg",
+  },
+};

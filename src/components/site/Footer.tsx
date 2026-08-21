@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Phone, Mail, Linkedin, Instagram, Facebook, Youtube } from "lucide-react";
 import { DISCLAIMER } from "@/data/site";
 import { Logo } from "./Logo";
+import { AiConcierge } from "./AiConcierge";
 import { cn } from "@/lib/utils";
 
 /**
@@ -11,6 +12,7 @@ import { cn } from "@/lib/utils";
 export function Footer() {
   const [openDisclaimer, setOpenDisclaimer] = useState(false);
   const [showFloatingWidget, setShowFloatingWidget] = useState(false);
+  const [showAiConcierge, setShowAiConcierge] = useState(false);
 
   useEffect(() => {
     let ticking = false;
@@ -221,13 +223,6 @@ export function Footer() {
         )}
       </div>
 
-      {/* Framer Oversized Bottom Wordmark - Brand Serif Typography & Logo Color */}
-      <div className="relative w-full overflow-hidden leading-none pt-4 pb-0 flex justify-center items-center pointer-events-none select-none">
-        <h1 className="text-[clamp(3rem,13.5vw,12.5rem)] font-medium uppercase whitespace-nowrap tracking-[0.18em] text-[#33312E] font-serif transition-all duration-700">
-          PRAMUKH
-        </h1>
-      </div>
-
       {/* Oberoi Realty Inspired Floating Circular Text Pro Button (Hidden on Hero Video Section) */}
       <div
         className={cn(
@@ -238,10 +233,11 @@ export function Footer() {
         )}
       >
         {/* Floating Pramukh Icon Button Container */}
-        <a
-          href="#enquiry"
-          aria-label="Enquire with Pramukh Property Advisor"
-          className="group relative flex h-20 w-20 sm:h-28 sm:w-28 items-center justify-center transition-all duration-300 hover:scale-105"
+        <button
+          type="button"
+          onClick={() => setShowAiConcierge((prev) => !prev)}
+          aria-label="Enquire with Pramukh AI Property Advisor"
+          className="group relative flex h-20 w-20 sm:h-28 sm:w-28 items-center justify-center transition-all duration-300 hover:scale-105 cursor-pointer select-none"
         >
           {/* Framer Circular Text Pro Rotating SVG Ring - High-Visibility Luxury Gold/Bronze */}
           <div className="absolute inset-0 flex items-center justify-center animate-[spin_14s_linear_infinite] pointer-events-none select-none">
@@ -265,8 +261,14 @@ export function Footer() {
               <path d="M712.24 224.63l0 36.1c0,0 108.25,16.5 123.84,129.03l60.14 0c0,0 -17.59,-8.96 -25.4,-30.49 -7.82,-21.57 -46.83,-120.06 -158.57,-134.64zm-245.29 -189.74l142.11 0 0 142.57c-103.09,-0.85 -139.19,-13.29 -142.11,-142.57zm-61.68 -34.89c0,0 27.52,18.54 27.76,53.04 0,3.32 0.24,6.44 0.57,9.4 9.57,128.22 64.5,146.25 175.46,147.65 0,0 -0.37,146.58 -0.54,146.58 0,0 -5.85,31.07 -21.97,33.07l22.51 0 19.65 0 15.08 0 0 -197.06 0 -175.25 0 -17.44 -195.19 0 -16.48 0 -26.85 0zm188.03 224.63l0 36.1c0,0 -108.21,16.5 -123.76,129.03l-60.22 0c0,0 17.64,-8.96 25.5,-30.49 7.76,-21.57 46.83,-120.06 158.48,-134.64zm103.17 -47.17l0 -142.57 142.07 0c-2.82,129.25 -38.94,141.69 -142.07,142.57zm177 -177.45l-16.53 0 -195.11 0 0 17.4 0 175.28 0 197.06 15 0 19.64 0 22.57 0c-16.18,-2 -21.93,-33.1 -21.93,-33.1 -0.21,0 -0.64,-146.54 -0.64,-146.54 111.03,-1.41 165.89,-19.44 175.46,-147.67 0.37,-2.96 0.61,-6.08 0.61,-9.4 0.26,-34.5 27.78,-53.03 27.78,-53.03l-26.85 0z" />
             </svg>
           </div>
-        </a>
+        </button>
       </div>
+
+      {/* Pramukh AI Real-Estate Concierge Modal Window */}
+      <AiConcierge
+        isOpen={showAiConcierge}
+        onClose={() => setShowAiConcierge(false)}
+      />
     </footer>
   );
 }
