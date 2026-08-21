@@ -45,6 +45,7 @@ import {
 } from "lucide-react";
 import { ONE_TAPI_DATA, GalleryItem, AmenityCategory, ProjectUpdate } from "@/data/oneTapi";
 import { Logo } from "./Logo";
+import { Preloader } from "./Preloader";
 import { Footer } from "./Footer";
 import { StickyEnquire } from "./StickyEnquire";
 import { Reveal } from "./Reveal";
@@ -192,6 +193,8 @@ export function OneTapiPage() {
 
   return (
     <div className="min-h-screen bg-[#F7F6F2] text-[#434242] font-sans antialiased selection:bg-[#AD945E] selection:text-white">
+      <Preloader variant="one-tapi" />
+
       {/* ----------------------------------------------------
           MINIMAL CINEMATIC FLOATING HEADER
       ---------------------------------------------------- */}

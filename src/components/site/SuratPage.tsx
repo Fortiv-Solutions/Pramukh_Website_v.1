@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import { Header } from "./Header";
 import { Footer } from "./Footer";
+import { Preloader } from "./Preloader";
 import { AnimatedText } from "./AnimatedText";
 import { Reveal } from "./Reveal";
 import { SURAT_DATA, SuratProjectCategory, SuratProject } from "@/data/surat";
@@ -141,6 +142,8 @@ export function SuratPage() {
 
   return (
     <div className="bg-[#FAF8F5] text-[#1C1A17] selection:bg-[#AD945E] selection:text-white font-sans antialiased overflow-x-hidden">
+      <Preloader variant="surat" />
+
       {/* ----------------------------------------------------
           13 — GLOBAL PRAMUKH HEADER (Transparent -> Solid on Scroll)
       ---------------------------------------------------- */}
