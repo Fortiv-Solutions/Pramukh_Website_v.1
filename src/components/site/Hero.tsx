@@ -77,7 +77,7 @@ export function Hero() {
         <LazyVideo
           src={HERO.video}
           startTime={45}
-          playbackRate={0.5}
+          playbackRate={1.25}
           eager={true}
           className="h-full w-full object-cover pointer-events-none border-0 outline-none select-none"
         />
